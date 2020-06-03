@@ -1,4 +1,4 @@
-function djikstra(graph, startNode, finishNode) {
+async function djikstra(graph, startNode, finishNode) {
   const infinity = Number.MAX_VALUE;
   var unvisited = [];
   var djikstraGraph = shallowCopyGraph(graph, []);
@@ -7,9 +7,7 @@ function djikstra(graph, startNode, finishNode) {
   for (let i = 0; i < djikstraGraph.length; i++) {
     for (let j = 0; j < djikstraGraph[i].length; j++) {
       djikstraGraph[i][j].distance = infinity;
-      // console.log(djikstraGraph[i][j].distance);
       unvisited.push(djikstraGraph[i][j]);
-      // console.log(unvisited[unvisited.length - 1]);
     }
   }
 
@@ -26,10 +24,7 @@ function djikstra(graph, startNode, finishNode) {
 
   var currNode = unvisited.unshift(); // currNode should be the startNode here
 
-  while (
-    // we haven't reached the finishNode or there is no possible path to the finishNode
-    !equalNodes(currNode, finishNode)
-  ) {
+  while (!equalNodes(currNode, finishNode)) {
     var validNeighbors = [];
     const left = currNode.x - 1;
     const right = currNode.x + 1;
@@ -62,7 +57,7 @@ function djikstra(graph, startNode, finishNode) {
       return a.distance - b.distance;
     });
     currNode = unvisited.shift();
-    if (currNode.distance === infinity) break;
+    if (currNode.distance === infinity) break; // there is no path to the finish node
   }
 
   currNode = currNode.predecessor;

@@ -20,6 +20,10 @@ function initializeGraph() {
   }
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function equalNodes(node1, node2) {
   return node1.x === node2.x && node1.y === node2.y;
 }

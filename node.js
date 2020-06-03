@@ -22,3 +22,24 @@ $(document).on("click", ".grid-square", function () {
   }
   djikstra(graph, startCell, finishCell);
 });
+
+function colorNode(x, y, color) {
+  var index = y * grid_width + x;
+  $(".grid-square").eq(index).css("background-color", color);
+}
+
+function clearBoard() {
+  for (let i = 0; i < graph.length; i++) {
+    for (let j = 0; j < graph[i].length; j++) {
+      if (
+        i !== startCell.x &&
+        j !== startCell.y &&
+        i !== finishCell.x &&
+        j !== finishCell.y
+      ) {
+        var index = j * grid_width + i;
+        $(".grid-square").eq(index).css("background-color", normalCellColor);
+      }
+    }
+  }
+}
