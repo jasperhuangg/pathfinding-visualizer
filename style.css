@@ -1,0 +1,24 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  position: relative;
+  zoom: 0.5;
+  border: solid 0.5px black;
+}
+.grid-square {
+  background: white;
+  border: solid 0.5px black;
+  padding: 1rem;
+  position: relative;
+  cursor: pointer;
+}
+.grid-square::before {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+body {
+  padding: 2rem;
+}
