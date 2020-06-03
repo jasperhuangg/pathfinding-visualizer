@@ -6,8 +6,11 @@ const finishCellColor = "rgb(224, 18, 7)";
 const obstacleColor = "rgb(47, 79, 79)";
 const normalCellColor = "rgb(255, 255, 255)";
 
-var startCell = { x: 1, y: 1 };
-var finishCell = { x: grid_width - 2, y: grid_height - 2 };
+var searching = false;
+var needToRecolor = false;
+
+var startCell = { x: 5, y: 5 };
+var finishCell = { x: grid_width - 15, y: grid_height - 20 };
 
 graph = [];
 
@@ -22,6 +25,30 @@ function initializeGraph() {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function recolorGrid() {
+  for (let i = 0; i < graph.length; i++) {
+    for (let j = 0; j < graph[i].length; j++) {
+      var index = j * grid_width + i;
+      var cell = $(".grid-square").eq(index);
+      if (
+        cell.css("background-color") !== startCellColor &&
+        cell.css("background-color") !== finishCellColor &&
+        cell.css("background-color") !== obstacleColor
+      ) {
+        cell.css("background-color", normalCellColor);
+      }
+    }
+  }
+  needToRecolor = false;
+}
+
+function colorNode(node, color) {
+  if (!equalNodes(node, startCell) && !equalNodes(node, finishCell)) {
+    var index = node.y * grid_width + node.x;
+    $(".grid-square").eq(index).css("background-color", color);
+  }
 }
 
 function equalNodes(node1, node2) {

@@ -1,6 +1,11 @@
 async function djikstra(graph, startNode, finishNode) {
+  recolorGrid();
+  needToRecolor = true;
+  searching = true;
+
   const infinity = Number.MAX_VALUE;
   var unvisited = [];
+  var visited = [];
   var djikstraGraph = shallowCopyGraph(graph, []);
 
   // initialize all nodes to dist infinity from the startNode
@@ -23,8 +28,11 @@ async function djikstra(graph, startNode, finishNode) {
   });
 
   var currNode = unvisited.unshift(); // currNode should be the startNode here
+  currNode.visited = true;
+  visited.push(currNode);
 
   while (!equalNodes(currNode, finishNode)) {
+    // highlight the currentNode a color
     var validNeighbors = [];
     const left = currNode.x - 1;
     const right = currNode.x + 1;
@@ -32,16 +40,32 @@ async function djikstra(graph, startNode, finishNode) {
     const down = currNode.y + 1;
 
     // consider all of the current node's valid neighbors
-    if (left >= 0 && !djikstraGraph[left][currNode.y].blocked) {
+    if (
+      left >= 0 &&
+      !djikstraGraph[left][currNode.y].blocked &&
+      djikstraGraph[left][currNode.y].visited === undefined
+    ) {
       validNeighbors.push(djikstraGraph[left][currNode.y]);
     }
-    if (right < grid_width && !djikstraGraph[right][currNode.y].blocked) {
+    if (
+      right < grid_width &&
+      !djikstraGraph[right][currNode.y].blocked &&
+      djikstraGraph[right][currNode.y].visited === undefined
+    ) {
       validNeighbors.push(djikstraGraph[right][currNode.y]);
     }
-    if (up >= 0 && !djikstraGraph[currNode.x][up].blocked) {
+    if (
+      up >= 0 &&
+      !djikstraGraph[currNode.x][up].blocked &&
+      djikstraGraph[currNode.x][up].visited === undefined
+    ) {
       validNeighbors.push(djikstraGraph[currNode.x][up]);
     }
-    if (down < grid_height && !djikstraGraph[currNode.x][down].blocked) {
+    if (
+      down < grid_height &&
+      !djikstraGraph[currNode.x][down].blocked &&
+      djikstraGraph[currNode.x][down].visited === undefined
+    ) {
       validNeighbors.push(djikstraGraph[currNode.x][down]);
     }
 
@@ -56,7 +80,12 @@ async function djikstra(graph, startNode, finishNode) {
     unvisited.sort((a, b) => {
       return a.distance - b.distance;
     });
+
     currNode = unvisited.shift();
+    visited.push(currNode);
+    await sleep(1);
+    colorNode(currNode, "rgb(252, 3, 215)");
+
     if (currNode.distance === infinity) break; // there is no path to the finish node
   }
 
@@ -64,12 +93,17 @@ async function djikstra(graph, startNode, finishNode) {
 
   while (currNode.x !== startX || currNode.y !== startY) {
     console.log("ran");
-    var index = currNode.y * grid_width + currNode.x;
-    $(".grid-square").eq(index).css("background-color", "yellow");
+    colorNode(currNode, "rgb(252, 240, 3)");
+    await sleep(10);
     currNode = currNode.predecessor;
   }
 
   console.log(djikstraGraph[finishNode.x][finishNode.y]);
+  searching = false;
 }
 
-djikstra(graph, startCell, finishCell);
+$("#run-djikstras").on("click", () => {
+  if (!searching) {
+    djikstra(graph, startCell, finishCell);
+  }
+});

@@ -1,6 +1,8 @@
 // onclick events for when obstacles are added to the graph to update the graph
 // color square gray on click, remove it from the graph
 $(document).on("click", ".grid-square", function () {
+  // recolor the board
+  if (needToRecolor) recolorGrid();
   let isStartCell = $(this).css("background-color") === startCellColor;
   let isFinishCell = $(this).css("background-color") === finishCellColor;
   let isObstacle = $(this).css("background-color") === obstacleColor;
@@ -20,13 +22,7 @@ $(document).on("click", ".grid-square", function () {
       graph[x][y].blocked = false;
     }
   }
-  djikstra(graph, startCell, finishCell);
 });
-
-function colorNode(x, y, color) {
-  var index = y * grid_width + x;
-  $(".grid-square").eq(index).css("background-color", color);
-}
 
 function clearBoard() {
   for (let i = 0; i < graph.length; i++) {
