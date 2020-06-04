@@ -1,16 +1,17 @@
 var grid_width = 50;
-var grid_height = 30;
+var grid_height = 20;
 
-const startCellColor = "rgb(39, 224, 7)";
-const finishCellColor = "rgb(224, 18, 7)";
+const startCellColor = "rgb(53, 255, 105)";
+const finishCellColor = "rgb(237, 83, 92)";
 const obstacleColor = "rgb(47, 79, 79)";
 const normalCellColor = "rgb(255, 255, 255)";
+const gridColor = "rgb(145, 177, 235)";
 
 var searching = false;
 var needToRecolor = false;
 
-var startCell = { x: 5, y: 5 };
-var finishCell = { x: grid_width - 15, y: grid_height - 20 };
+var startCell = { x: 3, y: 2 };
+var finishCell = { x: grid_width - 4, y: grid_height - 2 };
 
 graph = [];
 
@@ -28,26 +29,35 @@ function sleep(ms) {
 }
 
 function recolorGrid() {
-  for (let i = 0; i < graph.length; i++) {
-    for (let j = 0; j < graph[i].length; j++) {
-      var index = j * grid_width + i;
-      var cell = $(".grid-square").eq(index);
-      if (
-        cell.css("background-color") !== startCellColor &&
-        cell.css("background-color") !== finishCellColor &&
-        cell.css("background-color") !== obstacleColor
-      ) {
-        cell.css("background-color", normalCellColor);
-      }
-    }
-  }
-  needToRecolor = false;
+  $(".visited").removeClass("visited");
+  $(".path").removeClass("path");
 }
 
-function colorNode(node, color) {
+// instead of coloring background,
+// create a child with css class depending on type of node
+function colorNode(node, type) {
   if (!equalNodes(node, startCell) && !equalNodes(node, finishCell)) {
     var index = node.y * grid_width + node.x;
-    $(".grid-square").eq(index).css("background-color", color);
+
+    // $(".grid-square").eq(index).children().eq(0).remove();
+    if (type === "currentNode")
+      $(".grid-square").eq(index).addClass("currentNode");
+    else if (type === "obstacle")
+      $(".grid-square").eq(index).addClass("obstacle");
+    else if (type === "visited") {
+      $(".grid-square").eq(index).removeClass("currentNode");
+      $(".grid-square").eq(index).addClass("visited");
+
+      // // wait for a bit, then remove all the elements underneath
+      setTimeout(() => {
+        console.log("removing");
+        $(".grid-square").eq(index).children(".neighbor").remove();
+        $(".grid-square").eq(index).children(".currentNode").remove();
+      }, 500);
+    } else if (type === "path") {
+      $(".grid-square").eq(index).removeClass("visited");
+      $(".grid-square").eq(index).addClass("path");
+    }
   }
 }
 
@@ -75,14 +85,12 @@ function drawGraph() {
 
     var coord = { x: x, y: y };
 
-    var divStr = "<div class='grid-square'";
+    var divStr = "<div draggable='true' class='grid-square";
 
-    if (equalNodes(coord, startCell))
-      divStr += "style='background-color: " + startCellColor + "'";
-    else if (equalNodes(coord, finishCell))
-      divStr += "style='background-color: " + finishCellColor + "'";
+    if (equalNodes(coord, startCell)) divStr += " start";
+    else if (equalNodes(coord, finishCell)) divStr += " finish";
 
-    divStr += "></div>";
+    divStr += "'></div>";
     $("#graph").append(divStr);
   }
 }

@@ -1,17 +1,25 @@
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   width: 100%;
   position: relative;
+  border: solid 0.5px #d1d1d1;
+  background-color: #cec9c9;
+  box-sizing: border-box;
+  border-radius: 5px;
+  /* overflow: hidden; */
   zoom: 0.5;
-  border: solid 0.5px black;
+  -moz-transform: scale(0.5);
+  -moz-transform-origin: 0 0;
 }
 .grid-square {
-  background: white;
-  border: solid 0.5px black;
+  background-color: white;
+  border: solid 0.5px #d1d1d1;
   padding: 1rem;
   position: relative;
   cursor: pointer;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 .grid-square::before {
   content: "";
@@ -19,6 +27,111 @@
   padding-bottom: 100%;
 }
 
+/* Classes for animated ripple fills */
+/* TODO: finish this tutorial https://www.youtube.com/watch?v=QI2rDHQM5Pc */
+
+.visited {
+  animation: visitedRipple 0.8s linear forwards;
+}
+
+.obstacle {
+  animation: obstacleRipple 0.2s linear forwards;
+}
+
+.path {
+  animation: pathRipple 0.2s linear forwards;
+}
+
+.start {
+  background-color: rgb(53, 255, 105);
+  border: solid 0.5px #d1d1d1;
+}
+
+.finish {
+  background-color: rgb(237, 83, 92);
+  border: solid 0.5px rgb(145, 177, 235);
+}
+
+.currentNode {
+  background-color: #ff00aa;
+  border: solid 0.5px rgb(145, 177, 235);
+}
+
 body {
   padding: 2rem;
+  font-family: "Ubuntu", sans-serif !important;
+}
+
+@keyframes visitedRipple {
+  0% {
+    transform: scale(0.3);
+    background-color: #03071e;
+    border-radius: 100%;
+  }
+
+  25% {
+    transform: scale(0.6);
+    background-color: #6a040f;
+  }
+
+  50% {
+    background-color: #d00000;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: #e85d04;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #ffba08;
+  }
+}
+
+@keyframes obstacleRipple {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(15, 26, 26, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(19, 33, 33, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(32, 54, 54, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(47, 79, 79);
+    border-color: rgb(47, 79, 79);
+  }
+}
+
+@keyframes pathRipple {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(15, 26, 26, 0.75);
+    border-radius: 100%;
+    border-color: white;
+  }
+
+  50% {
+    background-color: #5a5c5c;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: #727373;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #dadbdb;
+    border-color: #dadbdb;
+  }
 }
