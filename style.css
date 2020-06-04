@@ -31,7 +31,7 @@
 /* TODO: finish this tutorial https://www.youtube.com/watch?v=QI2rDHQM5Pc */
 
 .visited {
-  animation: visitedRipple 0.8s linear forwards;
+  animation: sunsetVisitedRipple 0.8s linear forwards;
 }
 
 .obstacle {
@@ -39,22 +39,30 @@
 }
 
 .path {
-  animation: pathRipple 0.2s linear forwards;
+  animation: pathRipple 0.1s linear forwards;
 }
 
 .start {
-  background-color: rgb(53, 255, 105);
+  background-color: #d1d1d1;
+  background-image: url("./dot-circle-solid.svg");
   border: solid 0.5px #d1d1d1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
 }
 
 .finish {
-  background-color: rgb(237, 83, 92);
-  border: solid 0.5px rgb(145, 177, 235);
+  background-color: #d1d1d1;
+  background-image: url("./star-regular.svg");
+  border: solid 0.5px #d1d1d1;
+  background-repeat: no-repeat;
 }
 
 .currentNode {
   background-color: #ff00aa;
   border: solid 0.5px rgb(145, 177, 235);
+  border-radius: 50%;
+  transform: scale(0.85);
 }
 
 body {
@@ -62,7 +70,7 @@ body {
   font-family: "Ubuntu", sans-serif !important;
 }
 
-@keyframes visitedRipple {
+@keyframes sunsetVisitedRipple {
   0% {
     transform: scale(0.3);
     background-color: #03071e;
@@ -131,7 +139,7 @@ body {
 
   100% {
     transform: scale(1);
-    background-color: #dadbdb;
-    border-color: #dadbdb;
+    background-color: #d1d1d1;
+    border-color: #d1d1d1;
   }
 }

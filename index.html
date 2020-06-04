@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
   <title>Pathfinding Algorithm Visualizer</title>
   <link href="./style.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,7 +9,7 @@
   <meta content="utf-8" http-equiv="encoding">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;700&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
     integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
@@ -18,12 +17,29 @@
 
 <body>
   <div class="container-fluid text-center">
-    <button id="run-djikstras" class="btn btn-dark mb-3">Visualize Djikstra's Algorithm</button>
+
+    <div class="dropdown">
+      <label for="themesToggle"><strong>Themes:</strong></label><br>
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="themesToggle" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Sunset
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
+    </div>
+    <br>
+    <button id="run-djikstras" class="btn btn-secondary mb-3 mr-5">Visualize Djikstra's Algorithm</button>
+    <button id="run-astar" class="btn btn-secondary mb-3 ml-5">Visualize A* Search Algorithm</button><br><br>
     <div id="graph" class="grid"></div>
   </div>
 </body>
+<script src="./util.js"></script>
 <script src="./graph.js"></script>
 <script src="./djikstra.js"></script>
+<script src="./astar.js"></script>
 <script src="./node.js"></script>
 
 

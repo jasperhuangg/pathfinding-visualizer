@@ -4,7 +4,6 @@ async function djikstra(graph, startNode, finishNode) {
 
   const infinity = Number.MAX_VALUE;
   var unvisited = [];
-  var visited = [];
   var djikstraGraph = shallowCopyGraph(graph, []);
 
   // initialize all nodes to dist infinity from the startNode
@@ -29,7 +28,6 @@ async function djikstra(graph, startNode, finishNode) {
 
   var currNode = unvisited.unshift(); // currNode should be the startNode here
   currNode.visited = true;
-  visited.push(currNode);
 
   while (!equalNodes(currNode, finishNode)) {
     // highlight the currentNode a color
@@ -85,8 +83,6 @@ async function djikstra(graph, startNode, finishNode) {
     var lastNode = currNode;
     currNode = unvisited.shift();
 
-    visited.push(currNode);
-
     colorNode(currNode, "currentNode");
     // await sleep(0.1);
     await sleep(20);
@@ -104,6 +100,8 @@ async function djikstra(graph, startNode, finishNode) {
     currNode = currNode.predecessor;
   }
 
+  await sleep(100);
+
   for (let i = path.length - 1; i >= 0; i--) {
     colorNode(path[i], "path");
     await sleep(50);
@@ -114,6 +112,7 @@ async function djikstra(graph, startNode, finishNode) {
 }
 
 $("#run-djikstras").on("click", () => {
+  console.log("Running Djikstra's Algorithm...");
   if (!searching) {
     djikstra(graph, startCell, finishCell);
   }

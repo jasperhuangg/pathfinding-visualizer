@@ -1,4 +1,6 @@
-// TODO: change this to use colorNode
+let blank = new Image();
+blank.src = "./blank.png";
+
 $(document).on("click", ".grid-square", function () {
   // recolor the board
 
@@ -27,8 +29,6 @@ $(document).on("click", ".grid-square", function () {
 $(document).on("dragstart", ".grid-square", function (e) {
   if (!searching) {
     recolorGrid();
-    let blank = new Image();
-    blank.src = "./blank.png";
     e.dataTransfer = e.originalEvent.dataTransfer;
     e.dataTransfer.setDragImage(blank, 0, 0);
   }
