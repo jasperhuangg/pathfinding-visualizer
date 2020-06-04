@@ -1,14 +1,7 @@
 var grid_width = 50;
 var grid_height = 20;
 
-const startCellColor = "rgb(53, 255, 105)";
-const finishCellColor = "rgb(237, 83, 92)";
-const obstacleColor = "rgb(47, 79, 79)";
-const normalCellColor = "rgb(255, 255, 255)";
-const gridColor = "rgb(145, 177, 235)";
-
 var searching = false;
-var needToRecolor = false;
 
 var startCell = { x: 3, y: grid_height / 2 };
 var finishCell = { x: grid_width - 4, y: grid_height / 2 };

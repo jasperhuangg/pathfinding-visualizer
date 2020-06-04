@@ -3,9 +3,8 @@ blank.src = "./blank.png";
 
 $(document).on("click", ".grid-square", function () {
   // recolor the board
-
-  let isStartCell = $(this).css("background-color") === startCellColor;
-  let isFinishCell = $(this).css("background-color") === finishCellColor;
+  let isStartCell = $(this).hasClass("start");
+  let isFinishCell = $(this).hasClass("finish");
   let isObstacle = $(this).hasClass("obstacle");
 
   if (!searching && !isStartCell && !isFinishCell) {
@@ -34,12 +33,12 @@ $(document).on("dragstart", ".grid-square", function (e) {
   }
 });
 
-// $(document).on("mousedown", ".grid-square", function (e) {
-//   e.preventDefault();
-// });
-
 $(document).on("dragenter", ".grid-square", function (e) {
-  if (!searching) {
+  if (
+    !searching &&
+    !e.currentTarget.classList.contains("start") &&
+    !e.currentTarget.classList.contains("finish")
+  ) {
     e.preventDefault();
     var index = $(".grid-square").index($(this));
     var x = index % grid_width;
@@ -55,5 +54,14 @@ $(document).on("dragenter", ".grid-square", function (e) {
       e.currentTarget.classList.add("obstacle");
       graph[x][y].blocked = true;
     }
+  }
+});
+
+$(document).on("dragstart", ".start", function (e) {
+  console.log("dragstart");
+  if (!searching) {
+    recolorGrid();
+    e.dataTransfer = e.originalEvent.dataTransfer;
+    e.dataTransfer.setDragImage(blank, 0, 0);
   }
 });

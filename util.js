@@ -1,3 +1,6 @@
+var currentTheme = "sunset";
+var currentSpeed = "fast";
+
 function shallowCopyGraph(src, dest) {
   dest = new Array(src.length);
   for (let i = 0; i < src.length; i++) {
@@ -22,7 +25,14 @@ function sleep(ms) {
 }
 
 function recolorGrid() {
-  $(".visited").removeClass("visited");
+  $(".visitedSunset").removeClass("visitedSunset");
+  $(".visitedOcean").removeClass("visitedOcean");
+  $(".visitedChaos").removeClass("visitedChaos");
+  $(".visitedGray").removeClass("visitedGray");
+  $(".currentNodeGray").removeClass("currentNodeGray");
+  $(".currentNodeSunset").removeClass("currentNodeSunset");
+  $(".currentNodeChaos").removeClass("currentNodeChaos");
+  $(".currentNodeOcean").removeClass("currentNodeOcean");
   $(".path").removeClass("path");
 }
 
@@ -33,19 +43,31 @@ function colorNode(node, type) {
     var index = node.y * grid_width + node.x;
 
     // $(".grid-square").eq(index).children().eq(0).remove();
-    if (type === "currentNode")
-      $(".grid-square").eq(index).addClass("currentNode");
-    else if (type === "obstacle")
+    if (type === "currentNode") {
+      if (currentTheme === "sunset")
+        $(".grid-square").eq(index).addClass("currentNodeSunset");
+      else if (currentTheme === "ocean")
+        $(".grid-square").eq(index).addClass("currentNodeOcean");
+      else if (currentTheme === "chaos")
+        $(".grid-square").eq(index).addClass("currentNodeChaos");
+      else if (currentTheme === "gray")
+        $(".grid-square").eq(index).addClass("currentNodeGray");
+    } else if (type === "obstacle") {
       $(".grid-square").eq(index).addClass("obstacle");
-    else if (type === "visited") {
-      $(".grid-square").eq(index).removeClass("currentNode");
-      $(".grid-square").eq(index).addClass("visited");
-
-      // // wait for a bit, then remove all the elements underneath
-      setTimeout(() => {
-        $(".grid-square").eq(index).children(".neighbor").remove();
-        $(".grid-square").eq(index).children(".currentNode").remove();
-      }, 500);
+    } else if (type === "visited") {
+      if (currentTheme === "sunset") {
+        $(".grid-square").eq(index).removeClass("currentNodeSunset");
+        $(".grid-square").eq(index).addClass("visitedSunset");
+      } else if (currentTheme === "ocean") {
+        $(".grid-square").eq(index).removeClass("currentNodeOcean");
+        $(".grid-square").eq(index).addClass("visitedOcean");
+      } else if (currentTheme === "chaos") {
+        $(".grid-square").eq(index).removeClass("currentNodeChaos");
+        $(".grid-square").eq(index).addClass("visitedChaos");
+      } else if (currentTheme === "gray") {
+        $(".grid-square").eq(index).removeClass("currentNodeGray");
+        $(".grid-square").eq(index).addClass("visitedGray");
+      }
     } else if (type === "path") {
       $(".grid-square").eq(index).removeClass("visited");
       $(".grid-square").eq(index).addClass("path");
@@ -66,3 +88,66 @@ Array.prototype.remove = function () {
   }
   return this;
 };
+
+$(".theme").on("click", function () {
+  var theme = $(this).html();
+
+  if (theme === "Sunset Blvd.") {
+    currentTheme = "sunset";
+  } else if (theme === "Ocean's 11") {
+    currentTheme = "ocean";
+  } else if (theme === "Chaos Theory") {
+    currentTheme = "chaos";
+  } else if (theme === "Grayscale") {
+    currentTheme = "gray";
+  }
+
+  $("#themesToggle").html(theme);
+});
+
+$(".speed").on("click", function () {
+  var speed = $(this).html();
+
+  if (speed === "Fast") {
+    currentSpeed = "fast";
+  } else if (speed === "Medium") {
+    currentSpeed = "medium";
+  } else if (speed === "Slow") {
+    currentSpeed = "slow";
+  }
+
+  $("#speedToggle").html(speed);
+});
+
+// select a random theme on page load
+$(document).ready(function () {
+  var random = Math.floor(Math.random() * 4);
+
+  if (random === 0) {
+    currentTheme = "sunset";
+    $("#themesToggle").html("Sunset Blvd.");
+  } else if (random === 1) {
+    currentTheme = "ocean";
+    $("#themesToggle").html("Ocean's 11");
+  } else if (random === 2) {
+    currentTheme = "chaos";
+    $("#themesToggle").html("Chaos Theory");
+  } else if (random === 3) {
+    currentTheme = "gray";
+    $("#themesToggle").html("Grayscale");
+  }
+});
+
+function disableButtons() {
+  $("#themesToggle").attr("disabled", "");
+  $("#speedToggle").attr("disabled", "");
+  $("#run-djikstras").attr("disabled", "");
+  $("#run-astar").attr("disabled", "");
+}
+
+function enableButtons() {
+  $("#themesToggle").removeAttr("disabled");
+  $("#speedToggle").removeAttr("disabled");
+  $("#run-djikstras").removeAttr("disabled");
+  $("#run-astar").removeAttr("disabled");
+}

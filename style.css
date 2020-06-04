@@ -30,8 +30,20 @@
 /* Classes for animated ripple fills */
 /* TODO: finish this tutorial https://www.youtube.com/watch?v=QI2rDHQM5Pc */
 
-.visited {
+.visitedSunset {
   animation: sunsetVisitedRipple 0.8s linear forwards;
+}
+
+.visitedOcean {
+  animation: oceanVisitedRipple 0.8s linear forwards;
+}
+
+.visitedChaos {
+  animation: chaosVisitedRipple 0.8s linear forwards;
+}
+
+.visitedGray {
+  animation: grayVisitedRipple 0.8s linear forwards;
 }
 
 .obstacle {
@@ -58,9 +70,30 @@
   background-repeat: no-repeat;
 }
 
-.currentNode {
-  background-color: #ff00aa;
-  border: solid 0.5px rgb(145, 177, 235);
+.currentNodeSunset {
+  background-color: #ffd900;
+  border: solid 0.5px #d1d1d1;
+  border-radius: 70%;
+  transform: scale(0.85);
+}
+
+.currentNodeOcean {
+  background-color: #0091ff;
+  border: solid 0.5px #d1d1d1;
+  border-radius: 70%;
+  transform: scale(0.85);
+}
+
+.currentNodeChaos {
+  background-color: #ff00e6;
+  border: solid 0.5px #d1d1d1;
+  border-radius: 50%;
+  transform: scale(0.85);
+}
+
+.currentNodeGray {
+  background-color: #ffff00;
+  border: solid 0.5px #d1d1d1;
   border-radius: 50%;
   transform: scale(0.85);
 }
@@ -94,6 +127,87 @@ body {
   100% {
     transform: scale(1);
     background-color: #ffba08;
+  }
+}
+
+@keyframes oceanVisitedRipple {
+  0% {
+    transform: scale(0.3);
+    background-color: #51e0a4;
+    border-radius: 100%;
+  }
+
+  25% {
+    transform: scale(0.6);
+    background-color: #02c39a;
+  }
+
+  50% {
+    background-color: #00a896;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: #028090;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #05668d;
+  }
+}
+
+@keyframes chaosVisitedRipple {
+  0% {
+    transform: scale(0.3);
+    background-color: #290628;
+    border-radius: 100%;
+  }
+
+  25% {
+    transform: scale(0.6);
+    background-color: #3b0086;
+  }
+
+  50% {
+    background-color: #6200b3;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: #b43e8f;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #ea7af4;
+  }
+}
+
+@keyframes grayVisitedRipple {
+  0% {
+    transform: scale(0.3);
+    background-color: #e9ecef;
+    border-radius: 100%;
+  }
+
+  25% {
+    transform: scale(0.6);
+    background-color: #dee2e6;
+  }
+
+  50% {
+    background-color: #ced4da;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: #adb5bd;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #6c757d;
   }
 }
 

@@ -37,9 +37,17 @@ async function astar(graph, startNode, finishNode) {
 
     currNode.set = "closed";
 
+    $(".currentNodeGray").removeClass(".currentNodeGray");
+    $(".currentNodeSunset").removeClass(".currentNodeSunset");
+    $(".currentNodeOcean").removeClass(".currentNodeOcean");
+    $(".currentNodeChaos").removeClass(".currentNodeChaos");
+
     colorNode(currNode, "currentNode");
     if (lastNode !== undefined) colorNode(lastNode, "visited");
-    await sleep(20);
+
+    if (currentSpeed === "fast") await sleep(20);
+    else if (currentSpeed === "medium") await sleep(180);
+    else if (currentSpeed === "slow") await sleep(500);
 
     if (equalNodes(currNode, finishNode)) break;
 
@@ -89,22 +97,24 @@ async function astar(graph, startNode, finishNode) {
     lastNode = currNode;
   }
 
-  currNode = currNode.predecessor;
-
-  var path = [];
-
-  while (currNode.x !== startX || currNode.y !== startY) {
-    path.push(currNode);
+  if (equalNodes(currNode, finishNode)) {
     currNode = currNode.predecessor;
-  }
 
-  await sleep(100);
+    var path = [];
+    while (currNode.x !== startX || currNode.y !== startY) {
+      path.push(currNode);
+      currNode = currNode.predecessor;
+    }
 
-  for (let i = path.length - 1; i >= 0; i--) {
-    colorNode(path[i], "path");
-    await sleep(50);
+    await sleep(100);
+
+    for (let i = path.length - 1; i >= 0; i--) {
+      colorNode(path[i], "path");
+      await sleep(50);
+    }
   }
   searching = false;
+  enableButtons();
 }
 
 function calculateHeuristic(node, finishNode) {
@@ -112,8 +122,10 @@ function calculateHeuristic(node, finishNode) {
 }
 
 $("#run-astar").on("click", () => {
-  console.log("Running A* Search Algorithm...");
   if (!searching) {
+    console.log("Running A* Search Algorithm...");
+    recolorGrid();
     astar(graph, startCell, finishCell);
+    disableButtons();
   }
 });

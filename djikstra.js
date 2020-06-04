@@ -82,38 +82,50 @@ async function djikstra(graph, startNode, finishNode) {
 
     var lastNode = currNode;
     currNode = unvisited.shift();
+    if (currNode.distance === infinity || unvisited.length === 0) {
+      console.log("breaking");
+      break; // there is no path to the finish node
+    }
+
+    $(".currentNodeGray").removeClass("currentNodeGray");
+    $(".currentNodeSunset").removeClass("currentNodeSunset");
+    $(".currentNodeOcean").removeClass("currentNodeOcean");
+    $(".currentNodeChaos").removeClass("currentNodeChaos");
 
     colorNode(currNode, "currentNode");
-    // await sleep(0.1);
-    await sleep(20);
     colorNode(lastNode, "visited");
 
-    if (currNode.distance === infinity || unvisited.length === 0) break; // there is no path to the finish node
+    if (currentSpeed === "fast") await sleep(20);
+    else if (currentSpeed === "medium") await sleep(180);
+    else if (currentSpeed === "slow") await sleep(500);
   }
 
-  currNode = currNode.predecessor;
-
-  var path = [];
-
-  while (currNode.x !== startX || currNode.y !== startY) {
-    path.push(currNode);
+  if (currNode.distance !== infinity) {
     currNode = currNode.predecessor;
+
+    var path = [];
+    while (currNode.x !== startX || currNode.y !== startY) {
+      path.push(currNode);
+      currNode = currNode.predecessor;
+    }
+
+    await sleep(100);
+
+    for (let i = path.length - 1; i >= 0; i--) {
+      colorNode(path[i], "path");
+      await sleep(50);
+    }
   }
 
-  await sleep(100);
-
-  for (let i = path.length - 1; i >= 0; i--) {
-    colorNode(path[i], "path");
-    await sleep(50);
-  }
-
-  console.log(djikstraGraph[finishNode.x][finishNode.y]);
   searching = false;
+  enableButtons();
 }
 
 $("#run-djikstras").on("click", () => {
-  console.log("Running Djikstra's Algorithm...");
   if (!searching) {
+    console.log("Running Djikstra's Algorithm...");
+    recolorGrid();
+    disableButtons();
     djikstra(graph, startCell, finishCell);
   }
 });
