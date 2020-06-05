@@ -23,42 +23,50 @@
 
 <body>
   <div class="container-fluid text-center">
-    <div class="row justify-content-center">
-      <div class="col-2 dropdown mb-4">
-        <label for="themesToggle">Theme:</label><br>
-        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="themesToggle" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Sunset Blvd.
-        </button>
-        <div class="dropdown-menu" aria-labelledby="themesToggle">
-          <p class="theme dropdown-item">Sunset Blvd.</p>
-          <p class="theme dropdown-item">Ocean's 11</p>
-          <p class="theme dropdown-item">Chaos Theory</p>
-          <p class="theme dropdown-item">Grayscale</p>
-        </div>
+    <div class="row align-items-center">
+
+      <div class="col-6 mb-4">
+        <label class="text-white" for="themesToggle">Algorithms</label><br>
+        <button id="run-djikstras" class="btn btn-sm btn-secondary mr-5">Visualize Djikstra's</button>
+        <button id="run-greedyBFS" class="btn btn-sm btn-secondary">Visualize Greedy BFS</button>
+        <button id="run-astar" class="btn btn-sm btn-secondary ml-5">Visualize A*</button>
       </div>
-      <div class="col-2 dropdown mb-4">
-        <label for="speedToggle">Speed:</label><br>
-        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="speedToggle" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Fast
-        </button>
-        <div class="dropdown-menu" aria-labelledby="speedToggle">
-          <p class="speed dropdown-item">Fast</p>
-          <p class="speed dropdown-item">Medium</p>
-          <p class="speed dropdown-item">Slow</p>
+      <div class="row col-6 justify-content-center">
+        <div class="col-3 dropdown mb-4">
+          <label for="themesToggle">Theme:</label><br>
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="themesToggle"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sunset Blvd.
+          </button>
+          <div class="dropdown-menu" aria-labelledby="themesToggle">
+            <p class="theme dropdown-item">Sunset Blvd.</p>
+            <p class="theme dropdown-item">Ocean's 11</p>
+            <p class="theme dropdown-item">Chaos Theory</p>
+            <p class="theme dropdown-item">50 Shades</p>
+          </div>
+        </div>
+        <div class="col-3 dropdown mb-4">
+          <label for="speedToggle">Speed:</label><br>
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="speedToggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Fast
+          </button>
+          <div class="dropdown-menu" aria-labelledby="speedToggle">
+            <p class="speed dropdown-item">Fast</p>
+            <p class="speed dropdown-item">Medium</p>
+            <p class="speed dropdown-item">Slow</p>
+          </div>
         </div>
       </div>
     </div>
-    <button id="run-djikstras" class="btn btn-sm btn-secondary mr-5">Visualize Djikstra's Algorithm</button>
-    <button id="run-astar" class="btn btn-sm btn-secondary ml-5">Visualize A* Search Algorithm</button><br><br>
-
-    <div id="graph" class="grid"></div>
+  </div>
+  <div id="graph" class="grid"></div>
   </div>
 </body>
 <script src="./util.js"></script>
 <script src="./graph.js"></script>
 <script src="./djikstra.js"></script>
+<script src="./greedyBFS.js"></script>
 <script src="./astar.js"></script>
 <script src="./node.js"></script>
 

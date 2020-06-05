@@ -71,30 +71,30 @@
 }
 
 .currentNodeSunset {
-  background-color: #ffd900;
+  background-color: #ff00e6;
   border: solid 0.5px #d1d1d1;
   border-radius: 70%;
   transform: scale(0.85);
 }
 
 .currentNodeOcean {
-  background-color: #0091ff;
+  background-color: #ffff00;
   border: solid 0.5px #d1d1d1;
   border-radius: 70%;
   transform: scale(0.85);
 }
 
 .currentNodeChaos {
-  background-color: #ff00e6;
+  background-color: #ffff00;
   border: solid 0.5px #d1d1d1;
-  border-radius: 50%;
+  border-radius: 70%;
   transform: scale(0.85);
 }
 
 .currentNodeGray {
   background-color: #ffff00;
   border: solid 0.5px #d1d1d1;
-  border-radius: 50%;
+  border-radius: 70%;
   transform: scale(0.85);
 }
 

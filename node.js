@@ -25,11 +25,14 @@ $(document).on("click", ".grid-square", function () {
   }
 });
 
+var lastDragged;
+
 $(document).on("dragstart", ".grid-square", function (e) {
   if (!searching) {
     recolorGrid();
     e.dataTransfer = e.originalEvent.dataTransfer;
     e.dataTransfer.setDragImage(blank, 0, 0);
+    lastDragged = $(this);
   }
 });
 
@@ -37,9 +40,11 @@ $(document).on("dragenter", ".grid-square", function (e) {
   if (
     !searching &&
     !e.currentTarget.classList.contains("start") &&
-    !e.currentTarget.classList.contains("finish")
+    !e.currentTarget.classList.contains("finish") &&
+    $(this) !== lastDragged
   ) {
     e.preventDefault();
+    lastDragged = $(this);
     var index = $(".grid-square").index($(this));
     var x = index % grid_width;
     var y = (index - x) / grid_width;

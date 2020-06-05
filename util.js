@@ -98,7 +98,7 @@ $(".theme").on("click", function () {
     currentTheme = "ocean";
   } else if (theme === "Chaos Theory") {
     currentTheme = "chaos";
-  } else if (theme === "Grayscale") {
+  } else if (theme === "50 Shades") {
     currentTheme = "gray";
   }
 
@@ -134,20 +134,20 @@ $(document).ready(function () {
     $("#themesToggle").html("Chaos Theory");
   } else if (random === 3) {
     currentTheme = "gray";
-    $("#themesToggle").html("Grayscale");
+    $("#themesToggle").html("50 Shades");
   }
 });
 
 function disableButtons() {
   $("#themesToggle").attr("disabled", "");
-  $("#speedToggle").attr("disabled", "");
+  // $("#speedToggle").attr("disabled", "");
   $("#run-djikstras").attr("disabled", "");
   $("#run-astar").attr("disabled", "");
 }
 
 function enableButtons() {
   $("#themesToggle").removeAttr("disabled");
-  $("#speedToggle").removeAttr("disabled");
+  // $("#speedToggle").removeAttr("disabled");
   $("#run-djikstras").removeAttr("disabled");
   $("#run-astar").removeAttr("disabled");
 }
