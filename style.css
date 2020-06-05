@@ -178,13 +178,15 @@ span {
 @keyframes oceanVisitedRipple {
   0% {
     transform: scale(0.3);
-    background-color: #51e0a4;
+
+    background-color: #05668d;
     border-radius: 100%;
   }
 
   25% {
     transform: scale(0.6);
-    background-color: #02c39a;
+
+    background-color: #028090;
   }
 
   50% {
@@ -193,12 +195,12 @@ span {
 
   75% {
     transform: scale(1.2);
-    background-color: #028090;
+    background-color: #02c39a;
   }
 
   100% {
     transform: scale(1);
-    background-color: #05668d;
+    background-color: #51e0a4;
   }
 }
 
@@ -232,13 +234,13 @@ span {
 @keyframes grayVisitedRipple {
   0% {
     transform: scale(0.3);
-    background-color: #e9ecef;
+    background-color: #6c757d;
     border-radius: 100%;
   }
 
   25% {
     transform: scale(0.6);
-    background-color: #dee2e6;
+    background-color: #adb5bd;
   }
 
   50% {
@@ -247,25 +249,25 @@ span {
 
   75% {
     transform: scale(1.2);
-    background-color: #adb5bd;
+    background-color: #dee2e6;
   }
 
   100% {
     transform: scale(1);
-    background-color: #6c757d;
+    background-color: #e9ecef;
   }
 }
 
 @keyframes greenVisitedRipple {
   0% {
     transform: scale(0.3);
-    background-color: #adfa60;
+    background-color: #578d84;
     border-radius: 100%;
   }
 
   25% {
     transform: scale(0.6);
-    background-color: #96eb61;
+    background-color: #64af96;
   }
 
   50% {
@@ -274,41 +276,40 @@ span {
 
   75% {
     transform: scale(1.2);
-    background-color: #64af96;
+    background-color: #96eb61;
   }
 
   100% {
     transform: scale(1);
-    background-color: #578d84;
+
+    background-color: #adfa60;
   }
 }
 
 @keyframes cottonCandyVisitedRipple {
   0% {
     transform: scale(0.3);
-
-    background-color: #ffbcd9;
+    background-color: #67c3e7;
     border-radius: 100%;
   }
 
   25% {
     transform: scale(0.6);
-
-    background-color: #e1c1de;
+    background-color: #87bde7;
   }
 
   50% {
-    background-color: #c3c5e2;
+    background-color: #aaaddd;
   }
 
   75% {
     transform: scale(1.2);
-    background-color: #a5cae7;
+    background-color: #e0aedb;
   }
 
   100% {
     transform: scale(1);
-    background-color: #87ceeb;
+    background-color: #f7abcc;
   }
 }
 

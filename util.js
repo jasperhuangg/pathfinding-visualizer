@@ -117,7 +117,7 @@ $(".theme").on("click", function () {
     currentTheme = "chaos";
   } else if (theme === "50 Shades") {
     currentTheme = "gray";
-  } else if (theme === "Cotton Candy") {
+  } else if (theme === "Fairy Floss") {
     currentTheme = "cotton candy";
   }
 
