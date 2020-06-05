@@ -50,7 +50,7 @@ async function greedyBFS(graph, startNode, finishNode) {
     if (lastNode !== undefined) colorNode(lastNode, "visited");
 
     if (currentSpeed === "fast") await sleep(10);
-    else if (currentSpeed === "super fast") await sleep(1);
+    else if (currentSpeed === "super fast") await sleep(2);
     else if (currentSpeed === "medium") await sleep(180);
     else if (currentSpeed === "slow") await sleep(500);
 
