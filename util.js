@@ -29,10 +29,12 @@ function recolorGrid() {
   $(".visitedOcean").removeClass("visitedOcean");
   $(".visitedChaos").removeClass("visitedChaos");
   $(".visitedGray").removeClass("visitedGray");
+  $(".visitedGreen").removeClass("visitedGreen");
   $(".currentNodeGray").removeClass("currentNodeGray");
   $(".currentNodeSunset").removeClass("currentNodeSunset");
   $(".currentNodeChaos").removeClass("currentNodeChaos");
   $(".currentNodeOcean").removeClass("currentNodeOcean");
+  $(".currentNodeGreen").removeClass("currentNodeGreen");
   $(".path").removeClass("path");
 }
 
@@ -42,7 +44,6 @@ function colorNode(node, type) {
   if (!equalNodes(node, startCell) && !equalNodes(node, finishCell)) {
     var index = node.y * grid_width + node.x;
 
-    // $(".grid-square").eq(index).children().eq(0).remove();
     if (type === "currentNode") {
       if (currentTheme === "sunset")
         $(".grid-square").eq(index).addClass("currentNodeSunset");
@@ -52,6 +53,8 @@ function colorNode(node, type) {
         $(".grid-square").eq(index).addClass("currentNodeChaos");
       else if (currentTheme === "gray")
         $(".grid-square").eq(index).addClass("currentNodeGray");
+      else if (currentTheme === "green")
+        $(".grid-square").eq(index).addClass("currentNodeGreen");
     } else if (type === "obstacle") {
       $(".grid-square").eq(index).addClass("obstacle");
     } else if (type === "visited") {
@@ -67,6 +70,9 @@ function colorNode(node, type) {
       } else if (currentTheme === "gray") {
         $(".grid-square").eq(index).removeClass("currentNodeGray");
         $(".grid-square").eq(index).addClass("visitedGray");
+      } else if (currentTheme === "green") {
+        $(".grid-square").eq(index).removeClass("currentNodeGreen");
+        $(".grid-square").eq(index).addClass("visitedGreen");
       }
     } else if (type === "path") {
       $(".grid-square").eq(index).removeClass("visited");
@@ -96,6 +102,8 @@ $(".theme").on("click", function () {
     currentTheme = "sunset";
   } else if (theme === "Ocean's 11") {
     currentTheme = "ocean";
+  } else if (theme === "Rachel Green") {
+    currentTheme = "green";
   } else if (theme === "Chaos Theory") {
     currentTheme = "chaos";
   } else if (theme === "50 Shades") {
@@ -121,7 +129,7 @@ $(".speed").on("click", function () {
 
 // select a random theme on page load
 $(document).ready(function () {
-  var random = Math.floor(Math.random() * 4);
+  var random = Math.floor(Math.random() * 5);
 
   if (random === 0) {
     currentTheme = "sunset";
@@ -133,6 +141,9 @@ $(document).ready(function () {
     currentTheme = "chaos";
     $("#themesToggle").html("Chaos Theory");
   } else if (random === 3) {
+    currentTheme = "green";
+    $("#themesToggle").html("Rachel Green");
+  } else if (random === 4) {
     currentTheme = "gray";
     $("#themesToggle").html("50 Shades");
   }
@@ -142,6 +153,7 @@ function disableButtons() {
   $("#themesToggle").attr("disabled", "");
   $("#run-greedyBFS").attr("disabled", "");
   $("#run-djikstras").attr("disabled", "");
+  $("#clear-grid").attr("disabled", "");
   $("#run-astar").attr("disabled", "");
 }
 
@@ -149,5 +161,10 @@ function enableButtons() {
   $("#themesToggle").removeAttr("disabled");
   $("#run-greedyBFS").removeAttr("disabled");
   $("#run-djikstras").removeAttr("disabled");
+  $("#clear-grid").removeAttr("disabled");
   $("#run-astar").removeAttr("disabled");
 }
+
+$("#clear-grid").on("click", function () {
+  clearGrid();
+});

@@ -40,10 +40,11 @@ async function astar(graph, startNode, finishNode) {
 
     currNode.set = "closed";
 
-    $(".currentNodeGray").removeClass(".currentNodeGray");
-    $(".currentNodeSunset").removeClass(".currentNodeSunset");
-    $(".currentNodeOcean").removeClass(".currentNodeOcean");
-    $(".currentNodeChaos").removeClass(".currentNodeChaos");
+    $(".currentNodeGray").removeClass("currentNodeGray");
+    $(".currentNodeSunset").removeClass("currentNodeSunset");
+    $(".currentNodeOcean").removeClass("currentNodeOcean");
+    $(".currentNodeChaos").removeClass("currentNodeChaos");
+    $(".currentNodeGreen").removeClass("currentNodeGreen");
 
     colorNode(currNode, "currentNode");
     if (lastNode !== undefined) colorNode(lastNode, "visited");
@@ -110,6 +111,10 @@ async function astar(graph, startNode, finishNode) {
       path.push(currNode);
       currNode = currNode.predecessor;
     }
+
+    $("#steps-taken").html(
+      $("#steps-taken").html() + " | Path Length: " + path.length
+    );
 
     await sleep(100);
 

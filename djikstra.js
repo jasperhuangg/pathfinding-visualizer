@@ -94,6 +94,7 @@ async function djikstra(graph, startNode, finishNode) {
     $(".currentNodeSunset").removeClass("currentNodeSunset");
     $(".currentNodeOcean").removeClass("currentNodeOcean");
     $(".currentNodeChaos").removeClass("currentNodeChaos");
+    $(".currentNodeGreen").removeClass("currentNodeGreen");
 
     colorNode(currNode, "currentNode");
     colorNode(lastNode, "visited");
@@ -114,6 +115,10 @@ async function djikstra(graph, startNode, finishNode) {
       path.push(currNode);
       currNode = currNode.predecessor;
     }
+
+    $("#steps-taken").html(
+      $("#steps-taken").html() + " | Path Length: " + path.length
+    );
 
     await sleep(100);
 

@@ -17,6 +17,17 @@ function initializeGraph() {
   }
 }
 
+function clearGrid() {
+  recolorGrid();
+  $(".obstacle").removeClass("obstacle");
+
+  for (let i = 0; i < graph.length; i++) {
+    for (let j = 0; j < graph[i].length; j++) {
+      graph[i][j].blocked = false;
+    }
+  }
+}
+
 function drawGraph() {
   // set grid-template-columns css property for .grid to be grid_width x 1fr
   var gridTemplateString = "";
