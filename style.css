@@ -2,6 +2,7 @@ body {
   padding-right: 2rem;
   padding-left: 2rem;
   font-family: "Quicksand", sans-serif !important;
+  color: rgb(48, 79, 79) !important;
 }
 
 .grid {
@@ -105,8 +106,16 @@ body {
 
 .dropdown-item:hover {
   cursor: pointer;
-  background-color: #6c757d !important;
+  background-color: rgb(48, 79, 79) !important;
   color: white !important;
+}
+
+.btn-dark {
+  background-color: rgb(48, 79, 79) !important;
+}
+
+.btn-dark:hover {
+  background-color: rgb(20, 50, 50) !important;
 }
 
 @keyframes sunsetVisitedRipple {
