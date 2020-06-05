@@ -51,7 +51,6 @@ async function astar(graph, startNode, finishNode) {
     if (lastNode !== undefined) colorNode(lastNode, "visited");
 
     if (currentSpeed === "fast") await sleep(20);
-    else if (currentSpeed === "super fast") await sleep(2);
     else if (currentSpeed === "medium") await sleep(180);
     else if (currentSpeed === "slow") await sleep(500);
 

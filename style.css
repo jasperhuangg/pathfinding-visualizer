@@ -160,6 +160,10 @@ span {
   background-color: rgb(20, 50, 50) !important;
 }
 
+.font-small {
+  font-size: 12px;
+}
+
 @keyframes sunsetVisitedRipple {
   0% {
     transform: scale(0.3);

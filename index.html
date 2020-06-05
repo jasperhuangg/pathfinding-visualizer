@@ -26,6 +26,7 @@
     <br>
     <h1>Pathfinding Algorithm Visualizer</h1><br>
     <div id="info-section" class="d-none">
+
       <span id="currently-visualizing"></span><br>
       <span id="steps-taken"> </span>
     </div>
@@ -60,7 +61,7 @@
             Fast
           </button>
           <div class="dropdown-menu" aria-labelledby="speedToggle">
-            <span class="speed dropdown-item">Super Fast</span>
+            <span class="speed dropdown-item">Instantaneous</span>
             <span class="speed dropdown-item">Fast</span>
             <span class="speed dropdown-item">Medium</span>
             <span class="speed dropdown-item">Slow</span>
@@ -81,17 +82,15 @@
             <span class="theme dropdown-item">Fairy Floss</span>
           </div>
         </div>
-
-
         <div class="col-3">
           <label for="clear-grid" class="invisible">Clear Grid</label>
           <button id="clear-grid" class="btn btn-sm btn-dark">Clear Grid</button>
         </div>
-
       </div>
     </div>
   </div>
   <div id="graph" class="grid"></div>
+  <div class="mt-4 mb-1 text-center font-italic font-small">(Proof that pathfinding algorithms can be beautiful)</div>
   </div>
 </body>
 <script src="./util.js"></script>

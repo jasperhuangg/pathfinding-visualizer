@@ -1,5 +1,5 @@
 var grid_width = 60;
-var grid_height = 22;
+var grid_height = 20;
 
 var searching = false;
 var placing = "walls";
