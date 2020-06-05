@@ -75,7 +75,7 @@ span {
   background-image: url("./weight-solid.svg");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 80% 80%;
+  background-size: 75% 75%;
   opacity: 0.8;
   border: solid 0.5px #d1d1d1;
   background-color: white;
@@ -161,7 +161,7 @@ span {
 }
 
 .font-small {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 @keyframes sunsetVisitedRipple {
@@ -354,18 +354,18 @@ span {
 @keyframes pathRipple {
   0% {
     transform: scale(0.3);
-    background-color: rgba(15, 26, 26, 0.75);
+    background-color: rgba(77, 77, 77, 0.75);
     border-radius: 100%;
     border-color: white;
   }
 
   50% {
-    background-color: #5a5c5c;
+    background-color: #777979;
   }
 
   75% {
     transform: scale(1.2);
-    background-color: #727373;
+    background-color: #abadad;
   }
 
   100% {

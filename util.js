@@ -178,8 +178,8 @@ $(document).ready(function () {
     currentTheme = "gray";
     $("#themesToggle").html("50 Shades");
   } else if (random === 5) {
-    currentTheme = "gray";
-    $("#themesToggle").html("Cotton Candy");
+    currentTheme = "cotton candy";
+    $("#themesToggle").html("Fairy Floss");
   }
 });
 
