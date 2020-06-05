@@ -1,6 +1,11 @@
+body {
+  padding-right: 2rem;
+  padding-left: 2rem;
+  font-family: "Quicksand", sans-serif !important;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   width: 100%;
   position: relative;
   border: solid 0.5px #d1d1d1;
@@ -98,9 +103,10 @@
   transform: scale(0.85);
 }
 
-body {
-  padding: 2rem;
-  font-family: "Ubuntu", sans-serif !important;
+.dropdown-item:hover {
+  cursor: pointer;
+  background-color: #6c757d !important;
+  color: white !important;
 }
 
 @keyframes sunsetVisitedRipple {

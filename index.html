@@ -9,7 +9,7 @@
   <meta content="utf-8" http-equiv="encoding">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
     integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
@@ -23,38 +23,40 @@
 
 <body>
   <div class="container-fluid text-center">
-    <div class="row align-items-center">
-
+    <br>
+    <h1>Pathfinding Algorithm Visualizer</h1><br>
+    <div class="row align-items-center justify-content-between">
       <div class="col-6 mb-4">
-        <label class="text-white" for="themesToggle">Algorithms</label><br>
-        <button id="run-djikstras" class="btn btn-sm btn-secondary mr-5">Visualize Djikstra's</button>
-        <button id="run-greedyBFS" class="btn btn-sm btn-secondary">Visualize Greedy BFS</button>
-        <button id="run-astar" class="btn btn-sm btn-secondary ml-5">Visualize A*</button>
+        <label for="themesToggle">Visualize</label><br>
+        <button id="run-djikstras" class="btn btn-sm btn-dark mr-3">Djikstra's</button>
+
+        <button id="run-astar" class="btn btn-sm btn-dark">A*</button>
+        <button id="run-greedyBFS" class="btn btn-sm btn-dark ml-3">Greedy Best-First-Search</button>
       </div>
-      <div class="row col-6 justify-content-center">
+      <div class="row col-5 justify-content-center">
         <div class="col-3 dropdown mb-4">
-          <label for="themesToggle">Theme:</label><br>
-          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="themesToggle"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <label for="themesToggle">Color Theme</label><br>
+          <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="themesToggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Sunset Blvd.
           </button>
           <div class="dropdown-menu" aria-labelledby="themesToggle">
-            <p class="theme dropdown-item">Sunset Blvd.</p>
-            <p class="theme dropdown-item">Ocean's 11</p>
-            <p class="theme dropdown-item">Chaos Theory</p>
-            <p class="theme dropdown-item">50 Shades</p>
+            <span class="theme dropdown-item">Sunset Blvd.</span>
+            <span class="theme dropdown-item">Ocean's 11</span>
+            <span class="theme dropdown-item">Chaos Theory</span>
+            <span class="theme dropdown-item">50 Shades</span>
           </div>
         </div>
         <div class="col-3 dropdown mb-4">
-          <label for="speedToggle">Speed:</label><br>
-          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="speedToggle" data-toggle="dropdown"
+          <label for="speedToggle">Speed</label><br>
+          <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="speedToggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Fast
           </button>
           <div class="dropdown-menu" aria-labelledby="speedToggle">
-            <p class="speed dropdown-item">Fast</p>
-            <p class="speed dropdown-item">Medium</p>
-            <p class="speed dropdown-item">Slow</p>
+            <span class="speed dropdown-item">Fast</span>
+            <span class="speed dropdown-item">Medium</span>
+            <span class="speed dropdown-item">Slow</span>
           </div>
         </div>
       </div>

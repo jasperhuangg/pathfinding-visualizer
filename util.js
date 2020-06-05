@@ -140,14 +140,14 @@ $(document).ready(function () {
 
 function disableButtons() {
   $("#themesToggle").attr("disabled", "");
-  // $("#speedToggle").attr("disabled", "");
+  $("#run-greedyBFS").attr("disabled", "");
   $("#run-djikstras").attr("disabled", "");
   $("#run-astar").attr("disabled", "");
 }
 
 function enableButtons() {
   $("#themesToggle").removeAttr("disabled");
-  // $("#speedToggle").removeAttr("disabled");
+  $("#run-greedyBFS").removeAttr("disabled");
   $("#run-djikstras").removeAttr("disabled");
   $("#run-astar").removeAttr("disabled");
 }
