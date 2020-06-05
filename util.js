@@ -30,11 +30,15 @@ function recolorGrid() {
   $(".visitedChaos").removeClass("visitedChaos");
   $(".visitedGray").removeClass("visitedGray");
   $(".visitedGreen").removeClass("visitedGreen");
+  $(".visitedCottonCandy").removeClass("visitedCottonCandy");
+
   $(".currentNodeGray").removeClass("currentNodeGray");
   $(".currentNodeSunset").removeClass("currentNodeSunset");
   $(".currentNodeChaos").removeClass("currentNodeChaos");
   $(".currentNodeOcean").removeClass("currentNodeOcean");
   $(".currentNodeGreen").removeClass("currentNodeGreen");
+  $(".currentNodeCottonCandy").removeClass("currentNodeCottonCandy");
+
   $(".path").removeClass("path");
 }
 
@@ -55,6 +59,8 @@ function colorNode(node, type) {
         $(".grid-square").eq(index).addClass("currentNodeGray");
       else if (currentTheme === "green")
         $(".grid-square").eq(index).addClass("currentNodeGreen");
+      else if (currentTheme === "cotton candy")
+        $(".grid-square").eq(index).addClass("currentNodeCottonCandy");
     } else if (type === "obstacle") {
       $(".grid-square").eq(index).addClass("obstacle");
     } else if (type === "visited") {
@@ -73,6 +79,9 @@ function colorNode(node, type) {
       } else if (currentTheme === "green") {
         $(".grid-square").eq(index).removeClass("currentNodeGreen");
         $(".grid-square").eq(index).addClass("visitedGreen");
+      } else if (currentTheme === "cotton candy") {
+        $(".grid-square").eq(index).removeClass("currentNodeCottonCandy");
+        $(".grid-square").eq(index).addClass("visitedCottonCandy");
       }
     } else if (type === "path") {
       $(".grid-square").eq(index).removeClass("visited");
@@ -108,6 +117,8 @@ $(".theme").on("click", function () {
     currentTheme = "chaos";
   } else if (theme === "50 Shades") {
     currentTheme = "gray";
+  } else if (theme === "Cotton Candy") {
+    currentTheme = "cotton candy";
   }
 
   $("#themesToggle").html(theme);
@@ -129,7 +140,7 @@ $(".speed").on("click", function () {
 
 // select a random theme on page load
 $(document).ready(function () {
-  var random = Math.floor(Math.random() * 5);
+  var random = Math.floor(Math.random() * 6);
 
   if (random === 0) {
     currentTheme = "sunset";
@@ -146,6 +157,9 @@ $(document).ready(function () {
   } else if (random === 4) {
     currentTheme = "gray";
     $("#themesToggle").html("50 Shades");
+  } else if (random === 5) {
+    currentTheme = "gray";
+    $("#themesToggle").html("Cotton Candy");
   }
 });
 

@@ -64,6 +64,10 @@ span {
   animation: greenVisitedRipple 0.8s linear forwards;
 }
 
+.visitedCottonCandy {
+  animation: cottonCandyVisitedRipple 0.8s linear forwards;
+}
+
 .obstacle {
   animation: obstacleRipple 0.2s linear forwards;
 }
@@ -118,6 +122,13 @@ span {
 
 .currentNodeGreen {
   background-color: #ff00e6;
+  border: solid 0.5px #d1d1d1;
+  border-radius: 70%;
+  transform: scale(0.85);
+}
+
+.currentNodeCottonCandy {
+  background-color: #ffff00;
   border: solid 0.5px #d1d1d1;
   border-radius: 70%;
   transform: scale(0.85);
@@ -269,6 +280,35 @@ span {
   100% {
     transform: scale(1);
     background-color: #578d84;
+  }
+}
+
+@keyframes cottonCandyVisitedRipple {
+  0% {
+    transform: scale(0.3);
+
+    background-color: #ffbcd9;
+    border-radius: 100%;
+  }
+
+  25% {
+    transform: scale(0.6);
+
+    background-color: #e1c1de;
+  }
+
+  50% {
+    background-color: #c3c5e2;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: #a5cae7;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #87ceeb;
   }
 }
 

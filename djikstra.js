@@ -95,6 +95,7 @@ async function djikstra(graph, startNode, finishNode) {
     $(".currentNodeOcean").removeClass("currentNodeOcean");
     $(".currentNodeChaos").removeClass("currentNodeChaos");
     $(".currentNodeGreen").removeClass("currentNodeGreen");
+    $(".currentNodeCottonCandy").removeClass("currentNodeCottonCandy");
 
     colorNode(currNode, "currentNode");
     colorNode(lastNode, "visited");

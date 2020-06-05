@@ -45,6 +45,7 @@ async function astar(graph, startNode, finishNode) {
     $(".currentNodeOcean").removeClass("currentNodeOcean");
     $(".currentNodeChaos").removeClass("currentNodeChaos");
     $(".currentNodeGreen").removeClass("currentNodeGreen");
+    $(".currentNodeCottonCandy").removeClass("currentNodeCottonCandy");
 
     colorNode(currNode, "currentNode");
     if (lastNode !== undefined) colorNode(lastNode, "visited");
