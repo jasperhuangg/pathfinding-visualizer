@@ -7,7 +7,7 @@ async function greedyBFS(graph, startNode, finishNode) {
   var greedyBFSGraph = shallowCopyGraph(graph, []);
 
   var numSteps = 0;
-  $("#steps-taken").html("Steps Taken: " + numSteps);
+  $("#steps-taken").html("Tiles Examined: " + numSteps);
 
   const startX = startNode.x;
   const startY = startNode.y;
@@ -82,26 +82,30 @@ async function greedyBFS(graph, startNode, finishNode) {
         open.push(neighbor);
         neighbor.set = "open";
         neighbor.h = calculateHeuristic(neighbor, finishNode);
+        if (neighbor.weighted || currNode.weighted) neighbor.h += 9;
         neighbor.f = neighbor.h;
         neighbor.predecessor = currNode;
       }
     }
     lastNode = currNode;
     numSteps++;
-    $("#steps-taken").html("Steps Taken: " + numSteps);
+    $("#steps-taken").html("Tiles Examined: " + numSteps);
   }
 
   if (equalNodes(currNode, finishNode)) {
     currNode = currNode.predecessor;
 
     var path = [];
+    var weight = 1;
     while (currNode.x !== startX || currNode.y !== startY) {
       path.push(currNode);
+      if (currNode.weighted) weight += 10;
+      else weight++;
       currNode = currNode.predecessor;
     }
 
     $("#steps-taken").html(
-      $("#steps-taken").html() + " | Path Length: " + parseInt(path.length + 1)
+      $("#steps-taken").html() + " | Path Weight: " + weight
     );
 
     await sleep(100);
@@ -125,9 +129,7 @@ $("#run-greedyBFS").on("click", () => {
     $("#info-section").removeClass("d-none");
     $("#info-section-placeholder").addClass("d-none");
 
-    $("#currently-visualizing").html(
-      "Currently Visualizing: Greedy Best-First-Search"
-    );
+    $("#currently-visualizing").html("Greedy Best-First-Search");
     recolorGrid();
     greedyBFS(graph, startCell, finishCell);
     disableButtons();

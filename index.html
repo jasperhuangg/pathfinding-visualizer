@@ -37,14 +37,34 @@
     <div class="row align-items-center justify-content-between">
       <div class="col-6 mb-4">
         <label for="themesToggle">Visualize</label><br>
-        <button id="run-djikstras" class="btn btn-sm btn-dark mr-3">Djikstra's</button>
+        <button id="run-djikstras" class="btn btn-sm btn-dark mr-3">Dijkstra's</button>
         <button id="run-astar" class="btn btn-sm btn-dark">A*</button>
         <button id="run-greedyBFS" class="btn btn-sm btn-dark ml-3">Greedy BFS</button>
       </div>
-      <div class="row col-5 justify-content-center">
-        <div class="col-3">
-          <label for="clear-grid" class="invisible">Clear Grid</label>
-          <button id="clear-grid" class="btn btn-sm btn-dark">Clear Grid</button>
+      <div class="row col-6 justify-content-center">
+        <div class="col-3 dropdown mb-4">
+          <label for="placingToggle" class="invisible">Placing</label><br>
+          <button class=" btn btn-dark btn-sm dropdown-toggle" type="button" id="placingToggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Place Walls
+          </button>
+          <div class="dropdown-menu" aria-labelledby="speedToggle">
+            <span class="placeable dropdown-item">Walls</span>
+            <span class="placeable dropdown-item">Weights</span>
+          </div>
+        </div>
+        <div class="col-3 dropdown mb-4">
+          <label for="speedToggle" class="invisible">Speed</label><br>
+          <button class=" btn btn-dark btn-sm dropdown-toggle" type="button" id="speedToggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Fast
+          </button>
+          <div class="dropdown-menu" aria-labelledby="speedToggle">
+            <span class="speed dropdown-item">Super Fast</span>
+            <span class="speed dropdown-item">Fast</span>
+            <span class="speed dropdown-item">Medium</span>
+            <span class="speed dropdown-item">Slow</span>
+          </div>
         </div>
         <div class="col-3 dropdown mb-4">
           <label for="themesToggle" class="invisible">Theme</label><br>
@@ -61,18 +81,11 @@
             <span class="theme dropdown-item">Fairy Floss</span>
           </div>
         </div>
-        <div class="col-3 dropdown mb-4">
-          <label for="speedToggle" class="invisible">Speed</label><br>
-          <button class=" btn btn-dark btn-sm dropdown-toggle" type="button" id="speedToggle" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Fast
-          </button>
-          <div class="dropdown-menu" aria-labelledby="speedToggle">
-            <span class="speed dropdown-item">Super Fast</span>
-            <span class="speed dropdown-item">Fast</span>
-            <span class="speed dropdown-item">Medium</span>
-            <span class="speed dropdown-item">Slow</span>
-          </div>
+
+
+        <div class="col-3">
+          <label for="clear-grid" class="invisible">Clear Grid</label>
+          <button id="clear-grid" class="btn btn-sm btn-dark">Clear Grid</button>
         </div>
 
       </div>
@@ -84,7 +97,6 @@
 <script src="./util.js"></script>
 <script src="./graph.js"></script>
 <script src="./djikstra.js"></script>
-<script src="./bfs.js"></script>
 <script src="./greedyBFS.js"></script>
 <script src="./astar.js"></script>
 <script src="./node.js"></script>

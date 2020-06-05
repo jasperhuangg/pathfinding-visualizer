@@ -10,6 +10,7 @@ function shallowCopyGraph(src, dest) {
         x: src[i][j].x,
         y: src[i][j].y,
         blocked: src[i][j].blocked,
+        weighted: src[i][j].weighted,
       };
     }
   }
@@ -84,7 +85,13 @@ function colorNode(node, type) {
         $(".grid-square").eq(index).addClass("visitedCottonCandy");
       }
     } else if (type === "path") {
-      $(".grid-square").eq(index).removeClass("visited");
+      $(".grid-square").eq(index).removeClass("visitedOcean");
+      $(".grid-square").eq(index).removeClass("visitedGreen");
+      $(".grid-square").eq(index).removeClass("visitedSunset");
+      $(".grid-square").eq(index).removeClass("visitedCottonCandy");
+      $(".grid-square").eq(index).removeClass("visitedGray");
+      $(".grid-square").eq(index).removeClass("visitedChaos");
+
       $(".grid-square").eq(index).addClass("path");
     }
   }
@@ -140,6 +147,18 @@ $(".speed").on("click", function () {
   $("#speedToggle").html(speed);
 });
 
+$(".placeable").on("click", function () {
+  var item = $(this).html();
+
+  if (item === "Walls") {
+    placing = "walls";
+  } else if (item === "Weights") {
+    placing = "weights";
+  }
+
+  $("#placingToggle").html("Place " + item);
+});
+
 // select a random theme on page load
 $(document).ready(function () {
   var random = Math.floor(Math.random() * 6);
@@ -167,6 +186,7 @@ $(document).ready(function () {
 
 function disableButtons() {
   $("#themesToggle").attr("disabled", "");
+  $("#placingToggle").attr("disabled", "");
   $("#run-greedyBFS").attr("disabled", "");
   $("#run-djikstras").attr("disabled", "");
   $("#clear-grid").attr("disabled", "");
@@ -175,6 +195,7 @@ function disableButtons() {
 
 function enableButtons() {
   $("#themesToggle").removeAttr("disabled");
+  $("#placingToggle").removeAttr("disabled");
   $("#run-greedyBFS").removeAttr("disabled");
   $("#run-djikstras").removeAttr("disabled");
   $("#clear-grid").removeAttr("disabled");

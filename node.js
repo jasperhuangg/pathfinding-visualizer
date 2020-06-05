@@ -2,30 +2,52 @@ let blank = new Image();
 blank.src = "./blank.png";
 
 $(document).on("click", ".grid-square", function () {
+  console.log(placing);
   // recolor the board
   let isStartCell = $(this).hasClass("start");
   let isFinishCell = $(this).hasClass("finish");
   let isObstacle = $(this).hasClass("obstacle");
+  let isWeight = $(this).hasClass("weight");
 
-  if (!searching && !isStartCell && !isFinishCell) {
+  if (!searching && !isStartCell && !isFinishCell && placing === "walls") {
     recolorGrid();
     var index = $(".grid-square").index($(this));
     var x = index % grid_width;
     var y = (index - x) / grid_width;
 
-    if (!isObstacle) {
+    if (!isObstacle && !isWeight) {
       $(this).addClass("obstacle");
       // mark it as blocked
       graph[x][y].blocked = true;
-    } else {
+    } else if (isObstacle) {
       $(this).removeClass("obstacle");
       // mark it as unblocked
       graph[x][y].blocked = false;
     }
+  } else if (
+    !searching &&
+    !isStartCell &&
+    !isFinishCell &&
+    !isObstacle &&
+    placing === "weights"
+  ) {
+    recolorGrid();
+    var index = $(".grid-square").index($(this));
+    var x = index % grid_width;
+    var y = (index - x) / grid_width;
+
+    if (!isWeight) {
+      $(this).addClass("weight");
+      // mark it as blocked
+      graph[x][y].weighted = true;
+    } else {
+      $(this).removeClass("weight");
+      // mark it as unblocked
+      graph[x][y].weighted = false;
+    }
+    console.log(graph[x][y].weighted);
   }
 });
-
-var lastDragged;
 
 $(document).on("dragstart", ".grid-square", function (e) {
   if (!searching) {
@@ -37,14 +59,15 @@ $(document).on("dragstart", ".grid-square", function (e) {
 });
 
 $(document).on("dragenter", ".grid-square", function (e) {
+  console.log(placing);
   if (
     !searching &&
     !e.currentTarget.classList.contains("start") &&
     !e.currentTarget.classList.contains("finish") &&
-    $(this) !== lastDragged
+    placing === "walls" &&
+    !e.currentTarget.classList.contains("weight")
   ) {
     e.preventDefault();
-    lastDragged = $(this);
     var index = $(".grid-square").index($(this));
     var x = index % grid_width;
     var y = (index - x) / grid_width;
@@ -59,6 +82,29 @@ $(document).on("dragenter", ".grid-square", function (e) {
       e.currentTarget.classList.add("obstacle");
       graph[x][y].blocked = true;
     }
+  } else if (
+    !searching &&
+    !e.currentTarget.classList.contains("start") &&
+    !e.currentTarget.classList.contains("finish") &&
+    placing === "weights" &&
+    !e.currentTarget.classList.contains("obstacle")
+  ) {
+    e.preventDefault();
+    var index = $(".grid-square").index($(this));
+    var x = index % grid_width;
+    var y = (index - x) / grid_width;
+
+    if (e.currentTarget.classList.contains("weight")) {
+      e.currentTarget.classList.remove("weight");
+      graph[x][y].weighted = false;
+    } else if (
+      !e.currentTarget.classList.contains("start") &&
+      !e.currentTarget.classList.contains("finish")
+    ) {
+      e.currentTarget.classList.add("weight");
+      graph[x][y].weighted = true;
+    }
+    console.log(graph[x][y].weighted);
   }
 });
 

@@ -44,31 +44,42 @@ span {
 /* Classes for animated ripple fills */
 
 .visitedSunset {
-  animation: sunsetVisitedRipple 0.8s linear forwards;
+  animation: sunsetVisitedRipple 0.8s linear forwards !important;
 }
 
 .visitedOcean {
-  animation: oceanVisitedRipple 0.8s linear forwards;
+  animation: oceanVisitedRipple 0.8s linear forwards !important;
 }
 
 .visitedChaos {
-  animation: chaosVisitedRipple 0.8s linear forwards;
+  animation: chaosVisitedRipple 0.8s linear forwards !important;
 }
 
 .visitedGray {
-  animation: grayVisitedRipple 0.8s linear forwards;
+  animation: grayVisitedRipple 0.8s linear forwards !important;
 }
 
 .visitedGreen {
-  animation: greenVisitedRipple 0.8s linear forwards;
+  animation: greenVisitedRipple 0.8s linear forwards !important;
 }
 
 .visitedCottonCandy {
-  animation: cottonCandyVisitedRipple 0.8s linear forwards;
+  animation: cottonCandyVisitedRipple 0.8s linear forwards !important;
 }
 
 .obstacle {
   animation: obstacleRipple 0.2s linear forwards;
+}
+
+.weight {
+  background-image: url("./weight-solid.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80% 80%;
+  opacity: 0.8;
+  border: solid 0.5px #d1d1d1;
+  background-color: white;
+  animation: genericRipple 0.2s linear forwards;
 }
 
 .path {
@@ -179,14 +190,12 @@ span {
 @keyframes oceanVisitedRipple {
   0% {
     transform: scale(0.3);
-
     background-color: #05668d;
     border-radius: 100%;
   }
 
   25% {
     transform: scale(0.6);
-
     background-color: #028090;
   }
 
@@ -202,6 +211,7 @@ span {
   100% {
     transform: scale(1);
     background-color: #51e0a4;
+    border-color: #d1d1d1;
   }
 }
 
@@ -378,6 +388,6 @@ span {
   }
 
   100% {
-    transform: scale(1);
+    transform: scale(1) !important;
   }
 }

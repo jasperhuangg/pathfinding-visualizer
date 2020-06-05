@@ -2,6 +2,7 @@ var grid_width = 60;
 var grid_height = 22;
 
 var searching = false;
+var placing = "walls";
 
 var startCell = { x: 3, y: grid_height / 2 };
 var finishCell = { x: grid_width - 4, y: grid_height / 2 };
@@ -20,10 +21,12 @@ function initializeGraph() {
 function clearGrid() {
   recolorGrid();
   $(".obstacle").removeClass("obstacle");
+  $(".weight").removeClass("weight");
 
   for (let i = 0; i < graph.length; i++) {
     for (let j = 0; j < graph[i].length; j++) {
       graph[i][j].blocked = false;
+      graph[i][j].weighted = false;
     }
   }
 }

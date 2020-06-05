@@ -7,7 +7,7 @@ async function astar(graph, startNode, finishNode) {
   var astarGraph = shallowCopyGraph(graph, []);
 
   var numSteps = 0;
-  $("#steps-taken").html("Steps Taken: " + numSteps);
+  $("#steps-taken").html("Tiles Examined: " + numSteps);
 
   const startX = startNode.x;
   const startY = startNode.y;
@@ -81,8 +81,10 @@ async function astar(graph, startNode, finishNode) {
       var neighbor = validNeighbors[i];
 
       if (neighbor.set === "closed") continue;
-
-      var cost = currNode.g + 1;
+      var cost;
+      if (currNode.weighted === true || neighbor.weighted === true)
+        cost = currNode.g + 10;
+      else cost = currNode.g + 1;
 
       if (neighbor.set === "open" && cost < neighbor.g) {
         neighbor.set = "neither";
@@ -102,20 +104,24 @@ async function astar(graph, startNode, finishNode) {
     }
     lastNode = currNode;
     numSteps++;
-    $("#steps-taken").html("Steps Taken: " + numSteps);
+    $("#steps-taken").html("Tiles Examined: " + numSteps);
   }
 
   if (equalNodes(currNode, finishNode)) {
     currNode = currNode.predecessor;
 
     var path = [];
+
+    var weight = 1;
     while (currNode.x !== startX || currNode.y !== startY) {
       path.push(currNode);
+      if (currNode.weighted === true) weight += 10;
+      else weight++;
       currNode = currNode.predecessor;
     }
 
     $("#steps-taken").html(
-      $("#steps-taken").html() + " | Path Length: " + parseInt(path.length + 1)
+      $("#steps-taken").html() + " | Path Weight: " + weight
     );
 
     await sleep(100);
@@ -139,7 +145,7 @@ $("#run-astar").on("click", () => {
     $("#info-section").removeClass("d-none");
     $("#info-section-placeholder").addClass("d-none");
     $("#currently-visualizing").html(
-      "Currently Visualizing: A* Search Algorithm"
+      "A* Search Algorithm (Guarantees Shortest Path)"
     );
     recolorGrid();
     astar(graph, startCell, finishCell);
