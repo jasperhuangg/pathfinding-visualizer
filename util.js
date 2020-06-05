@@ -133,6 +133,8 @@ $(".speed").on("click", function () {
     currentSpeed = "medium";
   } else if (speed === "Slow") {
     currentSpeed = "slow";
+  } else if (speed === "Super Fast") {
+    currentSpeed = "super fast";
   }
 
   $("#speedToggle").html(speed);

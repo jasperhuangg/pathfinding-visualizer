@@ -42,7 +42,6 @@ span {
 }
 
 /* Classes for animated ripple fills */
-/* TODO: finish this tutorial https://www.youtube.com/watch?v=QI2rDHQM5Pc */
 
 .visitedSunset {
   animation: sunsetVisitedRipple 0.8s linear forwards;
@@ -83,6 +82,7 @@ span {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
+  animation: genericRipple 0.8s linear forwards;
 }
 
 .finish {
@@ -90,6 +90,7 @@ span {
   background-image: url("./star-regular.svg");
   border: solid 0.5px #d1d1d1;
   background-repeat: no-repeat;
+  animation: genericRipple 0.8s linear forwards;
 }
 
 .currentNodeSunset {
@@ -144,7 +145,7 @@ span {
   background-color: rgb(48, 79, 79) !important;
 }
 
-.btn-dark:hover {
+.btn-dark:hover:enabled {
   background-color: rgb(20, 50, 50) !important;
 }
 
@@ -357,5 +358,26 @@ span {
     transform: scale(1);
     background-color: #d1d1d1;
     border-color: #d1d1d1;
+  }
+}
+
+@keyframes genericRipple {
+  0% {
+    transform: scale(0.3);
+  }
+
+  25% {
+    transform: scale(0.6);
+  }
+
+  50% {
+  }
+
+  75% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }

@@ -51,6 +51,7 @@ async function astar(graph, startNode, finishNode) {
     if (lastNode !== undefined) colorNode(lastNode, "visited");
 
     if (currentSpeed === "fast") await sleep(20);
+    else if (currentSpeed === "super fast") await sleep(5);
     else if (currentSpeed === "medium") await sleep(180);
     else if (currentSpeed === "slow") await sleep(500);
 
@@ -114,7 +115,7 @@ async function astar(graph, startNode, finishNode) {
     }
 
     $("#steps-taken").html(
-      $("#steps-taken").html() + " | Path Length: " + path.length
+      $("#steps-taken").html() + " | Path Length: " + parseInt(path.length + 1)
     );
 
     await sleep(100);
