@@ -6,6 +6,9 @@ async function astar(graph, startNode, finishNode) {
   var open = [];
   var astarGraph = shallowCopyGraph(graph, []);
 
+  var numSteps = 0;
+  $("#steps-taken").html("Steps Taken: " + numSteps);
+
   const startX = startNode.x;
   const startY = startNode.y;
 
@@ -95,6 +98,8 @@ async function astar(graph, startNode, finishNode) {
       }
     }
     lastNode = currNode;
+    numSteps++;
+    $("#steps-taken").html("Steps Taken: " + numSteps);
   }
 
   if (equalNodes(currNode, finishNode)) {
@@ -124,6 +129,11 @@ function calculateHeuristic(node, finishNode) {
 $("#run-astar").on("click", () => {
   if (!searching) {
     console.log("Running A* Search Algorithm...");
+    $("#info-section").removeClass("d-none");
+    $("#info-section-placeholder").addClass("d-none");
+    $("#currently-visualizing").html(
+      "Currently Visualizing: A* Search Algorithm"
+    );
     recolorGrid();
     astar(graph, startCell, finishCell);
     disableButtons();

@@ -1,5 +1,5 @@
-var grid_width = 50;
-var grid_height = 20;
+var grid_width = 60;
+var grid_height = 22;
 
 var searching = false;
 

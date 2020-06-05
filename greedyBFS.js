@@ -6,6 +6,9 @@ async function greedyBFS(graph, startNode, finishNode) {
   var open = [];
   var greedyBFSGraph = shallowCopyGraph(graph, []);
 
+  var numSteps = 0;
+  $("#steps-taken").html("Steps Taken: " + numSteps);
+
   const startX = startNode.x;
   const startY = startNode.y;
 
@@ -72,16 +75,6 @@ async function greedyBFS(graph, startNode, finishNode) {
 
     for (let i = 0; i < validNeighbors.length; i++) {
       var neighbor = validNeighbors[i];
-
-      // if (neighbor.set === "closed") continue;
-
-      // if (neighbor.set === "open" && cost < neighbor.g) {
-      //   neighbor.set = "neither";
-      //   open.remove(neighbor);
-      // }
-      // if (neighbor.set === "closed" && cost < neighbor.g) {
-      //   neighbor.set = "neither";
-      // }
       if (neighbor.set === "neither") {
         open.push(neighbor);
         neighbor.set = "open";
@@ -91,6 +84,8 @@ async function greedyBFS(graph, startNode, finishNode) {
       }
     }
     lastNode = currNode;
+    numSteps++;
+    $("#steps-taken").html("Steps Taken: " + numSteps);
   }
 
   if (equalNodes(currNode, finishNode)) {
@@ -120,6 +115,12 @@ function calculateHeuristic(node, finishNode) {
 $("#run-greedyBFS").on("click", () => {
   if (!searching) {
     console.log("Running Greedy BFS Search Algorithm...");
+    $("#info-section").removeClass("d-none");
+    $("#info-section-placeholder").addClass("d-none");
+
+    $("#currently-visualizing").html(
+      "Currently Visualizing: Greedy Best-First-Search"
+    );
     recolorGrid();
     greedyBFS(graph, startCell, finishCell);
     disableButtons();

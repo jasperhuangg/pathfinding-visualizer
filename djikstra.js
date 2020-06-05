@@ -15,6 +15,9 @@ async function djikstra(graph, startNode, finishNode) {
     }
   }
 
+  var numSteps = 0;
+  $("#steps-taken").html("Steps Taken: " + numSteps);
+
   const startX = startNode.x;
   const startY = startNode.y;
 
@@ -98,6 +101,9 @@ async function djikstra(graph, startNode, finishNode) {
     if (currentSpeed === "fast") await sleep(20);
     else if (currentSpeed === "medium") await sleep(180);
     else if (currentSpeed === "slow") await sleep(500);
+
+    numSteps++;
+    $("#steps-taken").html("Steps Taken: " + numSteps);
   }
 
   if (currNode.distance !== infinity) {
@@ -124,6 +130,12 @@ async function djikstra(graph, startNode, finishNode) {
 $("#run-djikstras").on("click", () => {
   if (!searching) {
     console.log("Running Djikstra's Algorithm...");
+    $("#info-section").removeClass("d-none");
+    $("#info-section-placeholder").addClass("d-none");
+
+    $("#currently-visualizing").html(
+      "Currently Visualizing: Djikstra's Algorithm"
+    );
     recolorGrid();
     disableButtons();
     djikstra(graph, startCell, finishCell);
