@@ -13,16 +13,39 @@
   <meta content="utf-8" http-equiv="encoding">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+  <div id="tutorial" class="d-none">
+    <div class="x-out">
+      <i class="fas fa-times"></i>
+    </div>
+    <div class="mt-4 ml-4 mr-4 mb-4 font-small" id="tutorialText">
+      <div class="text-center">
+        <h5>About</h5>
+      </div>
+      <strong>The Grid: </strong><br>A graph, with each cell representing a node. Each cell is connected to adjacent
+      cells horizontally and vertically by invisible edges that (by default) cost 1 to traverse.
+      <br><br><strong>Placing Tiles: </strong><br>Drag or click anywhere on the grid to place weights or walls. Use the
+      dropdown
+      to
+      toggle between
+      the two.
+      <br><span class="tab">- <strong class="text-danger">Weighted cells: </strong>These tiles have edges that cost 10
+        to traverse.
+        <br><span class="tab">- <strong class="text-danger">Walled cells: </strong>These tiles do not have edges
+          connecting them to adjacent tiles.
+          <br><br><strong>Simulation Speed: </strong><br>Use the dropdown to toggle between simulation speeds.
+          "Instantaneous" skips the algorithm steps and immediately draws the path.
+          <br><br><strong>Themes: </strong><br>Use the rightmost dropdown to toggle between color themes for the
+          simulation.
+    </div>
+  </div>
   <div class="container-fluid text-center">
     <br>
     <h1>Pathfinding Algorithm Visualizer</h1><br>
     <div id="info-section" class="d-none">
-
       <span id="currently-visualizing"></span><br>
       <span id="steps-taken"> </span>
     </div>
@@ -43,8 +66,7 @@
       <div class="row col-5 justify-content-center mb-4">
         <label
           class="invisible">Sectionakldfjlasdasldfjkakldsjfl;kasdasdkjfaksdjfalsdjfasdfl;ajsasdklfjaldsjfadf</label><br>
-        <button id="info" disabled class="btn btn-sm btn-dark mr-3 mb-1"><i class="fas fa-info-circle"></i></button>
-
+        <button id="info" class="btn btn-sm btn-dark mr-3 mb-1"><i class="fas fa-info-circle"></i></button>
         <div class="mr-3 dropdown mb-1">
           <button class=" btn btn-dark btn-sm dropdown-toggle" type="button" id="placingToggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">

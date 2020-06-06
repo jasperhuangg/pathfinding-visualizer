@@ -190,8 +190,7 @@ function disableButtons() {
   $("#run-djikstras").attr("disabled", "");
   $("#clear-grid").attr("disabled", "");
   $("#run-astar").attr("disabled", "");
-  // $("#run-bidirectionalAStar").attr("disabled", "");
-  // $("#info").attr("disabled", "");
+  $("#run-bidirectionalAStar").attr("disabled", "");
 }
 
 function enableButtons() {
@@ -201,10 +200,17 @@ function enableButtons() {
   $("#run-djikstras").removeAttr("disabled");
   $("#clear-grid").removeAttr("disabled");
   $("#run-astar").removeAttr("disabled");
-  // $("#run-bidirectionalAStar").removeAttr("disabled");
-  // $("#info").removeAttr("disabled");
+  $("#run-bidirectionalAStar").removeAttr("disabled");
 }
 
 $("#clear-grid").on("click", function () {
   clearGrid();
+});
+
+$("#info").on("click", function () {
+  $("#tutorial").removeClass("d-none");
+});
+
+$(".x-out").on("click", function () {
+  $("#tutorial").addClass("d-none");
 });
