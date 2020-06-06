@@ -10,6 +10,8 @@ $(document).on("click", ".grid-square", function () {
 
   if (!searching && !isStartCell && !isFinishCell && placing === "walls") {
     recolorGrid();
+    $("#info-section").addClass("d-none");
+    $("#info-section-placeholder").removeClass("d-none");
     var index = $(".grid-square").index($(this));
     var x = index % grid_width;
     var y = (index - x) / grid_width;
@@ -31,6 +33,8 @@ $(document).on("click", ".grid-square", function () {
     placing === "weights"
   ) {
     recolorGrid();
+    $("#info-section").addClass("d-none");
+    $("#info-section-placeholder").removeClass("d-none");
     var index = $(".grid-square").index($(this));
     var x = index % grid_width;
     var y = (index - x) / grid_width;
@@ -50,6 +54,8 @@ $(document).on("click", ".grid-square", function () {
 $(document).on("dragstart", ".grid-square", function (e) {
   if (!searching) {
     recolorGrid();
+    $("#info-section").addClass("d-none");
+    $("#info-section-placeholder").removeClass("d-none");
     e.dataTransfer = e.originalEvent.dataTransfer;
     e.dataTransfer.setDragImage(blank, 0, 0);
     lastDragged = $(this);
@@ -101,13 +107,5 @@ $(document).on("dragenter", ".grid-square", function (e) {
       e.currentTarget.classList.add("weight");
       graph[x][y].weighted = true;
     }
-  }
-});
-
-$(document).on("dragstart", ".start", function (e) {
-  if (!searching) {
-    recolorGrid();
-    e.dataTransfer = e.originalEvent.dataTransfer;
-    e.dataTransfer.setDragImage(blank, 0, 0);
   }
 });
