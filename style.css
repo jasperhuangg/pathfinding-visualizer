@@ -205,13 +205,13 @@ span {
   position: absolute;
   right: 14px;
   top: 5px;
-  transition: 0.3s ease;
+  transition: 0.2s ease;
   color: white;
 }
 
 .x-out:hover {
   color: rgb(182, 45, 45);
-  transition: 0.3s ease;
+  transition: 0.2s ease;
   cursor: pointer;
 }
 

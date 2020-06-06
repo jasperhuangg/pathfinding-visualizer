@@ -27,7 +27,8 @@
       </div>
       <strong>The Grid: </strong><br>A graph, with each cell representing a node. Each cell is connected to adjacent
       cells horizontally and vertically by invisible edges that (by default) cost 1 to traverse.
-      <br><br><strong>Placing Weights/Walls: </strong><br>Drag or click anywhere on the grid to place weights or walls.
+      <br><br><strong>Weights/Walls: </strong><br>Drag or click anywhere on the grid to place or remove weights
+      or walls.
       Use the
       dropdown
       to
@@ -51,9 +52,9 @@
       <span id="steps-taken"> </span>
     </div>
     <div id="info-section-placeholder">
-      <span class="text-white">.</span>
-      <br>
-      <span class="text-white">.</span>
+      <span class="text-white"><span class="tab"></span>
+        <br>
+        <span class="text-white"><span class="tab"></span>
     </div>
     <div class="row align-items-center justify-content-between">
       <div class="col-7 mb-4">
@@ -111,7 +112,7 @@
     </div>
   </div>
   <div id="graph" class="grid"></div>
-  <div class="mt-4 mb-1 text-center font-italic font-small">(Proof that pathfinding algorithms can be beautiful)</div>
+  <div class="mt-4 mb-1 text-center font-italic font-small">(Proof that pathfinding algorithms are beautiful)</div>
   </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
