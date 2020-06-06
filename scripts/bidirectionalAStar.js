@@ -208,8 +208,7 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     lastNodeDest = currNodeDest;
   }
 
-  console.log(currNodeSource + " " + currNodeDest);
-
+  // TODO: not drawing the path correctly
   if (checkIntersection(closedSource, closedDest)) {
     var connectingNode = findIntersection(closedSource, closedDest);
 

@@ -140,7 +140,7 @@ $(".speed").on("click", function () {
     currentSpeed = "medium";
   } else if (speed === "Slow") {
     currentSpeed = "slow";
-  } else if (speed === "Instantaneous") {
+  } else if (speed === "Instant") {
     currentSpeed = "instantaneous";
   }
   $("#speedToggle").html(speed);
