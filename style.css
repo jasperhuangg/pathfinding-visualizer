@@ -72,7 +72,7 @@ span {
 }
 
 .weight {
-  background-image: url("./weight-solid.svg");
+  background-image: url("./assets/weight-solid.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 75% 75%;
@@ -88,7 +88,7 @@ span {
 
 .start {
   background-color: #d1d1d1;
-  background-image: url("./dot-circle-solid.svg");
+  background-image: url("./assets/dot-circle-solid.svg");
   border: solid 0.5px #d1d1d1;
   background-repeat: no-repeat;
   background-position: center;
@@ -98,7 +98,7 @@ span {
 
 .finish {
   background-color: #d1d1d1;
-  background-image: url("./star-regular.svg");
+  background-image: url("./assets/star-regular.svg");
   border: solid 0.5px #d1d1d1;
   background-repeat: no-repeat;
   animation: genericRipple 0.8s linear forwards;

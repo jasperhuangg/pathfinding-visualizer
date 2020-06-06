@@ -10,15 +10,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400&display=swap" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-    integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-    integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-    crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -36,15 +28,19 @@
       <span class="text-white">.</span>
     </div>
     <div class="row align-items-center justify-content-between">
-      <div class="col-6 mb-4">
+      <div class="col-7 mb-4">
         <label class="invisible">Visualize</label><br>
-        <button id="run-djikstras" class="btn btn-sm btn-dark mr-5">Visualize Dijkstra's</button>
-        <button id="run-astar" class="btn btn-sm btn-dark">Visualize A*</button>
-        <button id="run-greedyBFS" class="btn btn-sm btn-dark ml-5">Visualize Greedy BFS</button>
+        <button id="run-djikstras" class="btn btn-sm btn-dark mr-1 mb-1">Visualize Dijkstra's</button>
+        <button id="run-greedyBFS" class="btn btn-sm btn-dark mb-1">Visualize Greedy BFS</button>
+        <button id="run-astar" class="btn btn-sm btn-dark ml-1 mb-1">Visualize A*</button>
+        <button id="run-bidirectionalAStar" class="btn btn-sm btn-dark ml-1 mb-1">Visualize Bidirectional A*</button>
       </div>
-      <div class="row col-6 justify-content-center">
-        <div class="col-3 dropdown mb-4">
-          <label for="placingToggle" class="invisible">Placing</label><br>
+      <div class="row col-5 justify-content-center mb-4">
+        <label
+          class="invisible">Sectionakldfjlasdasldfjkakldsjfl;kasdasdkjfaksdjfalsdjfasdfl;ajsasdklfjaldsjfadf</label><br>
+        <button id="info" class="btn btn-sm btn-dark mr-3 mb-1"><i class="fas fa-info-circle"></i></button>
+
+        <div class="mr-3 dropdown mb-1">
           <button class=" btn btn-dark btn-sm dropdown-toggle" type="button" id="placingToggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Place Walls
@@ -54,8 +50,7 @@
             <span class="placeable dropdown-item">Weights</span>
           </div>
         </div>
-        <div class="col-3 dropdown mb-4">
-          <label for="speedToggle" class="invisible">Speed</label><br>
+        <div class="mr-3 dropdown mb-1">
           <button class=" btn btn-dark btn-sm dropdown-toggle" type="button" id="speedToggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Fast
@@ -67,11 +62,9 @@
             <span class="speed dropdown-item">Slow</span>
           </div>
         </div>
-        <div class="col-3 dropdown mb-4">
-          <label for="themesToggle" class="invisible">Theme</label><br>
+        <div class="mr-3 dropdown mb-1">
           <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="themesToggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-
           </button>
           <div class="dropdown-menu" aria-labelledby="themesToggle">
             <span class="theme dropdown-item">Sunset Blvd.</span>
@@ -82,9 +75,8 @@
             <span class="theme dropdown-item">Fairy Floss</span>
           </div>
         </div>
-        <div class="col-3">
-          <label for="clear-grid" class="invisible">Clear Grid</label>
-          <button id="clear-grid" class="btn btn-sm btn-danger">Clear Grid</button>
+        <div class="mr-3 mb-1">
+          <button id="clear-grid" class="btn btn-sm btn-danger">Clear</button>
         </div>
       </div>
     </div>
@@ -93,12 +85,22 @@
   <div class="mt-4 mb-1 text-center font-italic font-small">(Proof that pathfinding algorithms can be beautiful)</div>
   </div>
 </body>
-<script src="./util.js"></script>
-<script src="./graph.js"></script>
-<script src="./djikstra.js"></script>
-<script src="./greedyBFS.js"></script>
-<script src="./astar.js"></script>
-<script src="./node.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+  integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+  integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/e6a392354b.js" crossorigin="anonymous"></script>
+<script src="./scripts/util.js"></script>
+<script src="./scripts/graph.js"></script>
+<script src="./scripts/djikstra.js"></script>
+<script src="./scripts/greedyBFS.js"></script>
+<script src="./scripts/astar.js"></script>
+<script src="./scripts/bidirectionalAStar.js"></script>
+<script src="./scripts/node.js"></script>
+
 
 
 </html>
