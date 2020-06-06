@@ -190,7 +190,7 @@ function disableButtons() {
   $("#run-djikstras").attr("disabled", "");
   $("#clear-grid").attr("disabled", "");
   $("#run-astar").attr("disabled", "");
-  $("#run-bidirectionalAStar").attr("disabled", "");
+  // $("#run-bidirectionalAStar").attr("disabled", "");
 }
 
 function enableButtons() {
@@ -200,7 +200,7 @@ function enableButtons() {
   $("#run-djikstras").removeAttr("disabled");
   $("#clear-grid").removeAttr("disabled");
   $("#run-astar").removeAttr("disabled");
-  $("#run-bidirectionalAStar").removeAttr("disabled");
+  // $("#run-bidirectionalAStar").removeAttr("disabled");
 }
 
 $("#clear-grid").on("click", function () {
