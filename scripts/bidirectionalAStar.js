@@ -1,4 +1,6 @@
 // TODO: figure out how to exit properly from loop
+// - likely need two different set strings, startSet and startFinish
+// - when the same node is found in both the start and finish closed set, we stop searching
 
 async function bidirectionalAStar(graph, startNode, finishNode) {
   recolorGrid();

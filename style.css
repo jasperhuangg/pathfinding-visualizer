@@ -73,9 +73,9 @@ span {
 
 .weight {
   background-image: url("./assets/weight-solid.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 75% 75%;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 75% 75% !important;
   opacity: 0.8;
   border: solid 0.5px #d1d1d1;
   background-color: white;
@@ -249,27 +249,27 @@ span {
 @keyframes grayVisitedRipple {
   0% {
     transform: scale(0.3);
-    background-color: #6c757d;
+    background-color: #53585c;
     border-radius: 100%;
   }
 
   25% {
     transform: scale(0.6);
-    background-color: #adb5bd;
+    background-color: #5f6468;
   }
 
   50% {
-    background-color: #ced4da;
+    background-color: #82868a;
   }
 
   75% {
     transform: scale(1.2);
-    background-color: #dee2e6;
+    background-color: #94999c;
   }
 
   100% {
     transform: scale(1);
-    background-color: #e9ecef;
+    background-color: #a6aaad;
   }
 }
 
