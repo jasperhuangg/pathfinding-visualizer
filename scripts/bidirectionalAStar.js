@@ -1,3 +1,5 @@
+// TODO: figure out how to exit properly from loop
+
 async function bidirectionalAStar(graph, startNode, finishNode) {
   recolorGrid();
   searching = true;
