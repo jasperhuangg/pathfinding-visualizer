@@ -210,7 +210,7 @@ span {
 }
 
 .x-out:hover {
-  color: rgb(163, 160, 160);
+  color: rgb(182, 45, 45);
   transition: 0.3s ease;
   cursor: pointer;
 }
