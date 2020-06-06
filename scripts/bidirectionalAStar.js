@@ -8,7 +8,7 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
   var closedSource = [];
   var closedDest = [];
 
-  var numSteps = -3;
+  var numSteps = -3; // -2 for both start and finish nodes + -1 for overlapping connecting node
 
   $("#steps-taken").html("Cells Examined: " + numSteps);
 
@@ -74,7 +74,6 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     $(".currentNodeCottonCandy").removeClass("currentNodeCottonCandy");
 
     if (checkIntersection(closedSource, closedDest)) {
-      console.log("paths have reached each other");
       break; // the paths have reached each other
     }
     numSteps += 2;
@@ -153,9 +152,7 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
       validNeighborsDest.push(bidirectionalAStarGraph[currNodeDest.x][down]);
     }
 
-    // update f, g, h for each of the valid neighbors from both directions
-
-    // FROM SOURCE
+    // UPDATE NEIGHBORS FROM SOURCE
     for (let i = 0; i < validNeighborsSource.length; i++) {
       let neighbor = validNeighborsSource[i];
 
@@ -181,7 +178,7 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     }
     lastNodeSource = currNodeSource;
 
-    // FROM DEST
+    // UPDATE NEIGHBORS FROM DEST
     for (let i = 0; i < validNeighborsDest.length; i++) {
       let neighbor = validNeighborsDest[i];
 
@@ -208,7 +205,6 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     lastNodeDest = currNodeDest;
   }
 
-  // TODO: not drawing the path correctly
   if (checkIntersection(closedSource, closedDest)) {
     var connectingNode = findIntersection(closedSource, closedDest);
 
@@ -223,17 +219,17 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
     var pathNode = connectingNode.predecessorSource;
 
-    console.log(
-      "(" +
-        connectingNode.predecessorSource.x +
-        ", " +
-        connectingNode.predecessorSource.y +
-        ") (" +
-        connectingNode.predecessorDest.x +
-        ", " +
-        connectingNode.predecessorDest.y +
-        ")"
-    );
+    // console.log(
+    //   "(" +
+    //     connectingNode.predecessorSource.x +
+    //     ", " +
+    //     connectingNode.predecessorSource.y +
+    //     ") (" +
+    //     connectingNode.predecessorDest.x +
+    //     ", " +
+    //     connectingNode.predecessorDest.y +
+    //     ")"
+    // );
 
     while (!equalNodes(pathNode, startNode)) {
       path.unshift(pathNode);
