@@ -27,15 +27,16 @@
       </div>
       <strong>The Grid: </strong><br>A graph, with each cell representing a node. Each cell is connected to adjacent
       cells horizontally and vertically by invisible edges that (by default) cost 1 to traverse.
-      <br><br><strong>Placing Tiles: </strong><br>Drag or click anywhere on the grid to place weights or walls. Use the
+      <br><br><strong>Placing Weights/Walls: </strong><br>Drag or click anywhere on the grid to place weights or walls.
+      Use the
       dropdown
       to
       toggle between
       the two.
-      <br><span class="tab">- <strong class="text-danger">Weighted cells: </strong>These tiles have edges that cost 10
+      <br><span class="tab">- <strong class="text-danger">Weighted cells: </strong>These cells have edges that cost 10
         to traverse.
-        <br><span class="tab">- <strong class="text-danger">Walled cells: </strong>These tiles do not have edges
-          connecting them to adjacent tiles.
+        <br><span class="tab">- <strong class="text-danger">Walled cells: </strong>These cells do not have edges
+          connecting them to adjacent cells.
           <br><br><strong>Simulation Speed: </strong><br>Use the dropdown to toggle between simulation speeds.
           "Instant" skips the algorithm steps and immediately draws the path.
           <br><br><strong>Themes: </strong><br>Use the rightmost dropdown to toggle between color themes for the
@@ -57,8 +58,9 @@
     <div class="row align-items-center justify-content-between">
       <div class="col-7 mb-4">
         <label class="invisible">Visualize</label><br>
-        <button id="run-djikstras" class="btn btn-sm btn-dark mr-1 mb-1">Visualize Dijkstra's</button>
         <button id="run-greedyBFS" class="btn btn-sm btn-dark mb-1">Visualize Greedy BFS</button>
+        <button id="run-djikstras" class="btn btn-sm btn-dark mr-1 mb-1">Visualize Dijkstra's</button>
+
         <button id="run-astar" class="btn btn-sm btn-dark ml-1 mb-1">Visualize A*</button>
         <button id="run-bidirectionalAStar" disabled class="btn btn-sm btn-dark ml-1 mb-1">Visualize Bidirectional
           A*</button>
