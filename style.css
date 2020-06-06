@@ -160,6 +160,10 @@ span {
   background-color: rgb(20, 50, 50) !important;
 }
 
+.btn:disabled {
+  cursor: default;
+}
+
 .font-small {
   font-size: 14px;
 }
