@@ -63,9 +63,6 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     var currNodeSource = openSource.shift();
     var currNodeDest = openDest.shift();
 
-    currNodeSource.setSource = "closed";
-    currNodeDest.setDest = "closed";
-
     $(".currentNodeGray").removeClass("currentNodeGray");
     $(".currentNodeSunset").removeClass("currentNodeSunset");
     $(".currentNodeOcean").removeClass("currentNodeOcean");
@@ -80,6 +77,8 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
     $("#steps-taken").html("Cells Examined: " + numSteps);
 
+    currNodeSource.setSource = "closed";
+    currNodeDest.setDest = "closed";
     closedSource.push(currNodeSource);
     closedDest.push(currNodeDest);
 
@@ -158,7 +157,7 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
       if (neighbor.setSource === "closed") continue;
 
-      var cost;
+      let cost = 0;
       if (currNodeSource.weighted === true || neighbor.weighted === true)
         cost = currNodeSource.gSrc + 10;
       else cost = currNodeSource.gSrc + 1;
@@ -184,7 +183,7 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
       if (neighbor.setDest === "closed") continue;
 
-      var cost;
+      let cost = 0;
       if (currNodeDest.weighted === true || neighbor.weighted === true)
         cost = currNodeDest.gDest + 10;
       else cost = currNodeDest.gDest + 1;
@@ -219,18 +218,6 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
     var pathNode = connectingNode.predecessorSource;
 
-    // console.log(
-    //   "(" +
-    //     connectingNode.predecessorSource.x +
-    //     ", " +
-    //     connectingNode.predecessorSource.y +
-    //     ") (" +
-    //     connectingNode.predecessorDest.x +
-    //     ", " +
-    //     connectingNode.predecessorDest.y +
-    //     ")"
-    // );
-
     while (!equalNodes(pathNode, startNode)) {
       path.unshift(pathNode);
       if (pathNode.weighted) weight += 10;
@@ -238,6 +225,7 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
       pathNode = pathNode.predecessorSource;
     }
     pathNode = connectingNode.predecessorDest;
+
     while (!equalNodes(pathNode, finishNode)) {
       path.push(pathNode);
       if (pathNode.weighted) weight += 10;
