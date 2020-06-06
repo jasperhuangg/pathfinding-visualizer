@@ -26,7 +26,8 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
       bidirectionalAStarGraph[i][j].f = infinity;
       bidirectionalAStarGraph[i][j].g = infinity;
       bidirectionalAStarGraph[i][j].h = infinity;
-      bidirectionalAStarGraph[i][j].set = "neither";
+      bidirectionalAStarGraph[i][j].setStart = "neither";
+      bidirectionalAStarGraph[i][j].setFinish = "neither";
     }
   }
 
@@ -34,20 +35,20 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
   bidirectionalAStarGraph[startX][startY].f = 0;
   bidirectionalAStarGraph[startX][startY].g = 0;
   bidirectionalAStarGraph[startX][startY].h = 0;
-  bidirectionalAStarGraph[startX][startY].set = "open";
+  bidirectionalAStarGraph[startX][startY].setStart = "open";
 
   // initialize finish node's distance to be 0
   bidirectionalAStarGraph[finishX][finishY].f = 0;
   bidirectionalAStarGraph[finishX][finishY].g = 0;
   bidirectionalAStarGraph[finishX][finishY].h = 0;
-  bidirectionalAStarGraph[finishX][finishY].set = "open";
+  bidirectionalAStarGraph[finishX][finishY].setFinish = "open";
 
   openStart.push(bidirectionalAStarGraph[startX][startY]);
   openFinish.push(bidirectionalAStarGraph[finishX][finishY]);
 
   var lastNodeStart;
   var lastNodeFinish;
-  while (openStart.length > 0 || openFinish.length > 0) {
+  while (openStart.length > 0 && openFinish.length > 0) {
     openStart.sort((a, b) => {
       if (a.f !== b.f) return a.f - b.f;
       else return a.h - b.h;
@@ -61,8 +62,8 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     var currNodeStart = openStart.shift();
     var currNodeFinish = openFinish.shift();
 
-    currNodeStart.set = "closed";
-    currNodeFinish.set = "closed";
+    currNodeStart.setStart = "closed";
+    currNodeFinish.setFinish = "closed";
 
     $(".currentNodeGray").removeClass("currentNodeGray");
     $(".currentNodeSunset").removeClass("currentNodeSunset");
@@ -73,6 +74,7 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
     colorNode(currNodeStart, "currentNode");
     colorNode(currNodeFinish, "currentNode");
+
     if (lastNodeStart !== undefined) colorNode(lastNodeStart, "visited");
     if (lastNodeFinish !== undefined) colorNode(lastNodeFinish, "visited");
 
@@ -80,7 +82,15 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     else if (currentSpeed === "medium") await sleep(180);
     else if (currentSpeed === "slow") await sleep(500);
 
-    if (checkIfNeighbors(currNodeStart, currNodeFinish, graph) === true) break;
+    console.log(currNodeStart.setFinish + ", " + currNodeFinish.setStart);
+
+    if (
+      currNodeStart.setFinish === "closed" ||
+      currNodeFinish.setStart === "closed"
+    ) {
+      console.log("breaking");
+      break;
+    }
 
     // SEARCH FROM START
 
@@ -113,22 +123,20 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     for (let i = 0; i < validNeighborsStart.length; i++) {
       var neighbor = validNeighborsStart[i];
 
-      if (neighbor.set === "closed") continue;
+      if (neighbor.setStart === "closed") continue;
       var cost;
+
       if (currNodeStart.weighted === true || neighbor.weighted === true)
         cost = currNodeStart.g + 10;
       else cost = currNodeStart.g + 1;
 
-      if (neighbor.set === "open" && cost < neighbor.g) {
-        neighbor.set = "neither";
+      if (neighbor.setStart === "open" && cost < neighbor.g) {
+        neighbor.setStart = "neither";
         openStart.remove(neighbor);
       }
-      if (neighbor.set === "closed" && cost < neighbor.g) {
-        neighbor.set = "neither";
-      }
-      if (neighbor.set === "neither") {
+      if (neighbor.setStart === "neither") {
         openStart.push(neighbor);
-        neighbor.set = "open";
+        neighbor.setStart = "open";
         neighbor.g = cost;
         neighbor.h = calculateHeuristic(neighbor, finishNode);
         neighbor.f = neighbor.g + neighbor.h;
@@ -173,22 +181,22 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     for (let i = 0; i < validNeighborsFinish.length; i++) {
       var neighbor = validNeighborsFinish[i];
 
-      if (neighbor.set === "closed") continue;
+      if (neighbor.setFinish === "closed") continue;
       var cost;
       if (currNodeFinish.weighted === true || neighbor.weighted === true)
         cost = currNodeFinish.g + 10;
       else cost = currNodeFinish.g + 1;
 
-      if (neighbor.set === "open" && cost < neighbor.g) {
-        neighbor.set = "neither";
+      if (neighbor.setFinish === "open" && cost < neighbor.g) {
+        neighbor.setFinish = "neither";
         openFinish.remove(neighbor);
       }
-      if (neighbor.set === "closed" && cost < neighbor.g) {
-        neighbor.set = "neither";
+      if (neighbor.setFinish === "closed" && cost < neighbor.g) {
+        neighbor.setFinish = "neither";
       }
-      if (neighbor.set === "neither") {
+      if (neighbor.setFinish === "neither") {
         openFinish.push(neighbor);
-        neighbor.set = "open";
+        neighbor.setFinish = "open";
         neighbor.g = cost;
         neighbor.h = calculateHeuristic(neighbor, startNode);
         neighbor.f = neighbor.g + neighbor.h;
@@ -202,24 +210,27 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
   }
 
   if (
-    checkIfNeighbors(currNodeStart, currNodeFinish, bidirectionalAStarGraph)
+    currNodeFinish.setStart === "closed" ||
+    currNodeStart.setFinish === "closed"
   ) {
     var path = [];
-
+    console.log(JSON.stringify(currNodeStart));
+    console.log(JSON.stringify(currNodeFinish));
+    console.log(currNodeStart.setFinish + ", " + currNodeFinish.setStart);
     var weight = 1;
-    while (currNodeStart.x !== startX || currNodeStart.y !== startY) {
-      path.push(currNodeStart);
-      if (currNodeStart.weighted === true) weight += 10;
-      else weight++;
-      currNodeStart = currNodeStart.predecessor;
-    }
-
-    while (currNodeFinish.x !== finishX || currNodeFinish.y !== finishY) {
-      path.unshift(currNodeFinish);
-      if (currNodeFinish.weighted === true) weight += 10;
-      else weight++;
-      currNodeFinish = currNodeFinish.predecessor;
-    }
+    // while (currNodeStart.x !== startX || currNodeStart.y !== startY) {
+    //   path.push(currNodeStart);
+    //   if (currNodeStart.weighted === true) weight += 10;
+    //   else weight++;
+    //   currNodeStart = currNodeStart.predecessor;
+    // }
+    // console.log("past");
+    // while (currNodeFinish.x !== finishX || currNodeFinish.y !== finishY) {
+    //   path.unshift(currNodeFinish);
+    //   if (currNodeFinish.weighted === true) weight += 10;
+    //   else weight++;
+    //   currNodeFinish = currNodeFinish.predecessor;
+    // }
 
     $("#steps-taken").html(
       $("#steps-taken").html() + " | Path Weight: " + weight

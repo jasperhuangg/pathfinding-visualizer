@@ -89,9 +89,9 @@ async function astar(graph, startNode, finishNode) {
         neighbor.set = "neither";
         open.remove(neighbor);
       }
-      if (neighbor.set === "closed" && cost < neighbor.g) {
-        neighbor.set = "neither";
-      }
+      // if (neighbor.set === "closed" && cost < neighbor.g) {
+      //   neighbor.set = "neither";
+      // }
       if (neighbor.set === "neither") {
         open.push(neighbor);
         neighbor.set = "open";
