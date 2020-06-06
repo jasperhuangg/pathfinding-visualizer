@@ -29,6 +29,7 @@ async function astar(graph, startNode, finishNode) {
   astarGraph[startX][startY].set = "open";
 
   open.push(astarGraph[startX][startY]);
+
   var lastNode;
   while (open.length > 0) {
     open.sort((a, b) => {
@@ -90,9 +91,6 @@ async function astar(graph, startNode, finishNode) {
         neighbor.set = "neither";
         open.remove(neighbor);
       }
-      // if (neighbor.set === "closed" && cost < neighbor.g) {
-      //   neighbor.set = "neither";
-      // }
       if (neighbor.set === "neither") {
         open.push(neighbor);
         neighbor.set = "open";

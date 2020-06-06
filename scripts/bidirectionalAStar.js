@@ -1,17 +1,15 @@
-// TODO: figure out how to exit properly from loop
-// - likely need two different set strings, startSet and startFinish
-// - when the same node is found in both the start and finish closed set, we stop searching
-
 async function bidirectionalAStar(graph, startNode, finishNode) {
   recolorGrid();
   searching = true;
 
   const infinity = Number.MAX_VALUE;
-  var openStart = [];
-  var openFinish = [];
-  var bidirectionalAStarGraph = shallowCopyGraph(graph, []);
+  var openSource = [];
+  var openDest = [];
+  var closedSource = [];
+  var closedDest = [];
 
-  var numSteps = 0;
+  var numSteps = -3;
+
   $("#steps-taken").html("Tiles Examined: " + numSteps);
 
   const startX = startNode.x;
@@ -20,50 +18,53 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
   const finishX = finishNode.x;
   const finishY = finishNode.y;
 
+  var bidirectionalAStarGraph = shallowCopyGraph(graph, []);
+
   // initialize all nodes to dist infinity from the startNode
   for (let i = 0; i < bidirectionalAStarGraph.length; i++) {
     for (let j = 0; j < bidirectionalAStarGraph[i].length; j++) {
-      bidirectionalAStarGraph[i][j].f = infinity;
-      bidirectionalAStarGraph[i][j].g = infinity;
-      bidirectionalAStarGraph[i][j].h = infinity;
-      bidirectionalAStarGraph[i][j].setStart = "neither";
-      bidirectionalAStarGraph[i][j].setFinish = "neither";
+      bidirectionalAStarGraph[i][j].fSrc = infinity;
+      bidirectionalAStarGraph[i][j].gSrc = infinity;
+      bidirectionalAStarGraph[i][j].hSrc = infinity;
+      bidirectionalAStarGraph[i][j].fDest = infinity;
+      bidirectionalAStarGraph[i][j].gDest = infinity;
+      bidirectionalAStarGraph[i][j].hDest = infinity;
+      bidirectionalAStarGraph[i][j].setSource = "neither";
+      bidirectionalAStarGraph[i][j].setDest = "neither";
     }
   }
 
-  // initialize start node's distance to be 0
-  bidirectionalAStarGraph[startX][startY].f = 0;
-  bidirectionalAStarGraph[startX][startY].g = 0;
-  bidirectionalAStarGraph[startX][startY].h = 0;
-  bidirectionalAStarGraph[startX][startY].setStart = "open";
+  // initialize start/finish node distance from start/finish to 0
+  bidirectionalAStarGraph[startX][startY].fSrc = 0;
+  bidirectionalAStarGraph[startX][startY].gSrc = 0;
+  bidirectionalAStarGraph[startX][startY].hSrc = 0;
+  bidirectionalAStarGraph[startX][startY].setSource = "open";
+  openSource.push(bidirectionalAStarGraph[startX][startY]);
 
-  // initialize finish node's distance to be 0
-  bidirectionalAStarGraph[finishX][finishY].f = 0;
-  bidirectionalAStarGraph[finishX][finishY].g = 0;
-  bidirectionalAStarGraph[finishX][finishY].h = 0;
-  bidirectionalAStarGraph[finishX][finishY].setFinish = "open";
+  bidirectionalAStarGraph[finishX][finishY].fDest = 0;
+  bidirectionalAStarGraph[finishX][finishY].gDest = 0;
+  bidirectionalAStarGraph[finishX][finishY].hDest = 0;
+  bidirectionalAStarGraph[finishX][finishY].setDest = "open";
+  openDest.push(bidirectionalAStarGraph[finishX][finishY]);
 
-  openStart.push(bidirectionalAStarGraph[startX][startY]);
-  openFinish.push(bidirectionalAStarGraph[finishX][finishY]);
+  var lastNodeSource;
+  var lastNodeDest;
 
-  var lastNodeStart;
-  var lastNodeFinish;
-  while (openStart.length > 0 && openFinish.length > 0) {
-    openStart.sort((a, b) => {
-      if (a.f !== b.f) return a.f - b.f;
-      else return a.h - b.h;
+  while (openSource.length > 0 && openDest.length > 0) {
+    openSource.sort((a, b) => {
+      if (a.fSrc !== b.fSrc) return a.fSrc - b.fSrc;
+      else return a.hSrc - b.hSrc;
+    });
+    openDest.sort((a, b) => {
+      if (a.fDest !== b.fDest) return a.fDest - b.fDest;
+      else return a.hDest - b.hDest;
     });
 
-    openFinish.sort((a, b) => {
-      if (a.f !== b.f) return a.f - b.f;
-      else return a.h - b.h;
-    });
+    var currNodeSource = openSource.shift();
+    var currNodeDest = openDest.shift();
 
-    var currNodeStart = openStart.shift();
-    var currNodeFinish = openFinish.shift();
-
-    currNodeStart.setStart = "closed";
-    currNodeFinish.setFinish = "closed";
+    currNodeSource.setSource = "closed";
+    currNodeDest.setDest = "closed";
 
     $(".currentNodeGray").removeClass("currentNodeGray");
     $(".currentNodeSunset").removeClass("currentNodeSunset");
@@ -72,165 +73,182 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     $(".currentNodeGreen").removeClass("currentNodeGreen");
     $(".currentNodeCottonCandy").removeClass("currentNodeCottonCandy");
 
-    colorNode(currNodeStart, "currentNode");
-    colorNode(currNodeFinish, "currentNode");
+    if (checkIntersection(closedSource, closedDest)) {
+      console.log("paths have reached each other");
+      break; // the paths have reached each other
+    }
+    numSteps += 2;
 
-    if (lastNodeStart !== undefined) colorNode(lastNodeStart, "visited");
-    if (lastNodeFinish !== undefined) colorNode(lastNodeFinish, "visited");
+    $("#steps-taken").html("Tiles Examined: " + numSteps);
+
+    closedSource.push(currNodeSource);
+    closedDest.push(currNodeDest);
+
+    colorNode(currNodeSource, "currentNode");
+    colorNode(currNodeDest, "currentNode");
+    if (lastNodeSource !== undefined && currentSpeed !== "instantaneous")
+      colorNode(lastNodeSource, "visited");
+    if (lastNodeDest !== undefined && currentSpeed !== "instantaneous")
+      colorNode(lastNodeDest, "visited");
 
     if (currentSpeed === "fast") await sleep(20);
     else if (currentSpeed === "medium") await sleep(180);
     else if (currentSpeed === "slow") await sleep(500);
 
-    console.log(currNodeStart.setFinish + ", " + currNodeFinish.setStart);
+    var validNeighborsSource = [];
+    var validNeighborsDest = [];
+    var left = currNodeSource.x - 1;
+    var right = currNodeSource.x + 1;
+    var up = currNodeSource.y - 1;
+    var down = currNodeSource.y + 1;
 
-    if (
-      currNodeStart.setFinish === "closed" ||
-      currNodeFinish.setStart === "closed"
-    ) {
-      console.log("breaking");
-      break;
-    }
-
-    // SEARCH FROM START
-
-    var validNeighborsStart = [];
-    var left = currNodeStart.x - 1;
-    var right = currNodeStart.x + 1;
-    var up = currNodeStart.y - 1;
-    var down = currNodeStart.y + 1;
-
-    // consider all of the current node's valid neighbors
-    if (left >= 0 && !bidirectionalAStarGraph[left][currNodeStart.y].blocked) {
-      validNeighborsStart.push(bidirectionalAStarGraph[left][currNodeStart.y]);
-    }
-    if (
-      right < grid_width &&
-      !bidirectionalAStarGraph[right][currNodeStart.y].blocked
-    ) {
-      validNeighborsStart.push(bidirectionalAStarGraph[right][currNodeStart.y]);
-    }
-    if (up >= 0 && !bidirectionalAStarGraph[currNodeStart.x][up].blocked) {
-      validNeighborsStart.push(bidirectionalAStarGraph[currNodeStart.x][up]);
-    }
-    if (
-      down < grid_height &&
-      !bidirectionalAStarGraph[currNodeStart.x][down].blocked
-    ) {
-      validNeighborsStart.push(bidirectionalAStarGraph[currNodeStart.x][down]);
-    }
-
-    for (let i = 0; i < validNeighborsStart.length; i++) {
-      var neighbor = validNeighborsStart[i];
-
-      if (neighbor.setStart === "closed") continue;
-      var cost;
-
-      if (currNodeStart.weighted === true || neighbor.weighted === true)
-        cost = currNodeStart.g + 10;
-      else cost = currNodeStart.g + 1;
-
-      if (neighbor.setStart === "open" && cost < neighbor.g) {
-        neighbor.setStart = "neither";
-        openStart.remove(neighbor);
-      }
-      if (neighbor.setStart === "neither") {
-        openStart.push(neighbor);
-        neighbor.setStart = "open";
-        neighbor.g = cost;
-        neighbor.h = calculateHeuristic(neighbor, finishNode);
-        neighbor.f = neighbor.g + neighbor.h;
-        neighbor.predecessor = currNodeStart;
-      }
-    }
-    lastNodeStart = currNodeStart;
-
-    // SEARCH FROM FINISH
-    var validNeighborsFinish = [];
-    left = currNodeFinish.x - 1;
-    right = currNodeFinish.x + 1;
-    up = currNodeFinish.y - 1;
-    down = currNodeFinish.y + 1;
-
-    // consider all of the current node's valid neighbors
-    if (left >= 0 && !bidirectionalAStarGraph[left][currNodeFinish.y].blocked) {
-      validNeighborsFinish.push(
-        bidirectionalAStarGraph[left][currNodeFinish.y]
+    // consider all of the current node's (from source) valid neighbors
+    if (left >= 0 && !bidirectionalAStarGraph[left][currNodeSource.y].blocked) {
+      validNeighborsSource.push(
+        bidirectionalAStarGraph[left][currNodeSource.y]
       );
     }
     if (
       right < grid_width &&
-      !bidirectionalAStarGraph[right][currNodeFinish.y].blocked
+      !bidirectionalAStarGraph[right][currNodeSource.y].blocked
     ) {
-      validNeighborsFinish.push(
-        bidirectionalAStarGraph[right][currNodeFinish.y]
+      validNeighborsSource.push(
+        bidirectionalAStarGraph[right][currNodeSource.y]
       );
     }
-    if (up >= 0 && !bidirectionalAStarGraph[currNodeFinish.x][up].blocked) {
-      validNeighborsFinish.push(bidirectionalAStarGraph[currNodeFinish.x][up]);
+    if (up >= 0 && !bidirectionalAStarGraph[currNodeSource.x][up].blocked) {
+      validNeighborsSource.push(bidirectionalAStarGraph[currNodeSource.x][up]);
     }
     if (
       down < grid_height &&
-      !bidirectionalAStarGraph[currNodeFinish.x][down].blocked
+      !bidirectionalAStarGraph[currNodeSource.x][down].blocked
     ) {
-      validNeighborsFinish.push(
-        bidirectionalAStarGraph[currNodeFinish.x][down]
+      validNeighborsSource.push(
+        bidirectionalAStarGraph[currNodeSource.x][down]
       );
     }
 
-    for (let i = 0; i < validNeighborsFinish.length; i++) {
-      var neighbor = validNeighborsFinish[i];
+    left = currNodeDest.x - 1;
+    right = currNodeDest.x + 1;
+    up = currNodeDest.y - 1;
+    down = currNodeDest.y + 1;
 
-      if (neighbor.setFinish === "closed") continue;
+    // consider all of the current node's (from dest) valid neighbors
+    if (left >= 0 && !bidirectionalAStarGraph[left][currNodeDest.y].blocked) {
+      validNeighborsDest.push(bidirectionalAStarGraph[left][currNodeDest.y]);
+    }
+    if (
+      right < grid_width &&
+      !bidirectionalAStarGraph[right][currNodeDest.y].blocked
+    ) {
+      validNeighborsDest.push(bidirectionalAStarGraph[right][currNodeDest.y]);
+    }
+    if (up >= 0 && !bidirectionalAStarGraph[currNodeDest.x][up].blocked) {
+      validNeighborsDest.push(bidirectionalAStarGraph[currNodeDest.x][up]);
+    }
+    if (
+      down < grid_height &&
+      !bidirectionalAStarGraph[currNodeDest.x][down].blocked
+    ) {
+      validNeighborsDest.push(bidirectionalAStarGraph[currNodeDest.x][down]);
+    }
+
+    // update f, g, h for each of the valid neighbors from both directions
+
+    // FROM SOURCE
+    for (let i = 0; i < validNeighborsSource.length; i++) {
+      let neighbor = validNeighborsSource[i];
+
+      if (neighbor.setSource === "closed") continue;
+
       var cost;
-      if (currNodeFinish.weighted === true || neighbor.weighted === true)
-        cost = currNodeFinish.g + 10;
-      else cost = currNodeFinish.g + 1;
+      if (currNodeSource.weighted === true || neighbor.weighted === true)
+        cost = currNodeSource.gSrc + 10;
+      else cost = currNodeSource.gSrc + 1;
 
-      if (neighbor.setFinish === "open" && cost < neighbor.g) {
-        neighbor.setFinish = "neither";
-        openFinish.remove(neighbor);
+      if (neighbor.setSource === "open" && cost < neighbor.gSrc) {
+        neighbor.setSource = "neither";
+        openSource.remove(neighbor);
       }
-      if (neighbor.setFinish === "closed" && cost < neighbor.g) {
-        neighbor.setFinish = "neither";
-      }
-      if (neighbor.setFinish === "neither") {
-        openFinish.push(neighbor);
-        neighbor.setFinish = "open";
-        neighbor.g = cost;
-        neighbor.h = calculateHeuristic(neighbor, startNode);
-        neighbor.f = neighbor.g + neighbor.h;
-        neighbor.predecessor = currNodeFinish;
+      if (neighbor.setSource === "neither") {
+        openSource.push(neighbor);
+        neighbor.setSource = "open";
+        neighbor.gSrc = cost;
+        neighbor.hSrc = calculateHeuristic(neighbor, finishNode);
+        neighbor.fSrc = neighbor.gSrc + neighbor.hSrc;
+        neighbor.predecessorSource = currNodeSource;
       }
     }
-    lastNodeFinish = currNodeFinish;
+    lastNodeSource = currNodeSource;
 
-    numSteps += 2;
-    $("#steps-taken").html("Tiles Examined: " + numSteps);
+    // FROM DEST
+    for (let i = 0; i < validNeighborsDest.length; i++) {
+      let neighbor = validNeighborsDest[i];
+
+      if (neighbor.setDest === "closed") continue;
+
+      var cost;
+      if (currNodeDest.weighted === true || neighbor.weighted === true)
+        cost = currNodeDest.gDest + 10;
+      else cost = currNodeDest.gDest + 1;
+
+      if (neighbor.setDest === "open" && cost < neighbor.gDest) {
+        neighbor.setDest = "neither";
+        openDest.remove(neighbor);
+      }
+      if (neighbor.setDest === "neither") {
+        openDest.push(neighbor);
+        neighbor.setDest = "open";
+        neighbor.gDest = cost;
+        neighbor.hDest = calculateHeuristic(neighbor, startNode);
+        neighbor.fDest = neighbor.gDest + neighbor.hDest;
+        neighbor.predecessorDest = currNodeDest;
+      }
+    }
+    lastNodeDest = currNodeDest;
   }
 
-  if (
-    currNodeFinish.setStart === "closed" ||
-    currNodeStart.setFinish === "closed"
-  ) {
+  console.log(currNodeSource + " " + currNodeDest);
+
+  if (checkIntersection(closedSource, closedDest)) {
+    var connectingNode = findIntersection(closedSource, closedDest);
+
     var path = [];
-    console.log(JSON.stringify(currNodeStart));
-    console.log(JSON.stringify(currNodeFinish));
-    console.log(currNodeStart.setFinish + ", " + currNodeFinish.setStart);
+
     var weight = 1;
-    // while (currNodeStart.x !== startX || currNodeStart.y !== startY) {
-    //   path.push(currNodeStart);
-    //   if (currNodeStart.weighted === true) weight += 10;
-    //   else weight++;
-    //   currNodeStart = currNodeStart.predecessor;
-    // }
-    // console.log("past");
-    // while (currNodeFinish.x !== finishX || currNodeFinish.y !== finishY) {
-    //   path.unshift(currNodeFinish);
-    //   if (currNodeFinish.weighted === true) weight += 10;
-    //   else weight++;
-    //   currNodeFinish = currNodeFinish.predecessor;
-    // }
+
+    path.push(connectingNode);
+
+    if (connectingNode.weighted) weight += 10;
+    else weight++;
+
+    var pathNode = connectingNode.predecessorSource;
+
+    console.log(
+      "(" +
+        connectingNode.predecessorSource.x +
+        ", " +
+        connectingNode.predecessorSource.y +
+        ") (" +
+        connectingNode.predecessorDest.x +
+        ", " +
+        connectingNode.predecessorDest.y +
+        ")"
+    );
+
+    while (!equalNodes(pathNode, startNode)) {
+      path.unshift(pathNode);
+      if (pathNode.weighted) weight += 10;
+      else weight++;
+      pathNode = pathNode.predecessorSource;
+    }
+    pathNode = connectingNode.predecessorDest;
+    while (!equalNodes(pathNode, finishNode)) {
+      path.push(pathNode);
+      if (pathNode.weighted) weight += 10;
+      else weight++;
+      pathNode = pathNode.predecessorDest;
+    }
 
     $("#steps-taken").html(
       $("#steps-taken").html() + " | Path Weight: " + weight
@@ -238,12 +256,12 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
     await sleep(100);
 
-    for (let i = path.length - 1; i >= 0; i--) {
-      console.log(path[i].x);
+    for (let i = 0; i < path.length; i++) {
       colorNode(path[i], "path");
       await sleep(50);
     }
   }
+
   searching = false;
   enableButtons();
 }
@@ -266,16 +284,12 @@ $("#run-bidirectionalAStar").on("click", () => {
   }
 });
 
-function checkIfNeighbors(node1, node2, graph) {
-  var neighbors = [];
-  if (node1.x + 1 < grid_width) neighbors.push(graph[node1.x + 1][node1.y]);
-  if (node1.x - 1 >= 0) neighbors.push(graph[node1.x - 1][node1.y]);
-  if (node1.y - 1 >= 0) neighbors.push(graph[node1.x][node1.y - 1]);
-  if (node1.y + 1 < grid_height) neighbors.push(graph[node1.x][node1.y + 1]);
+function checkIntersection(closed1, closed2) {
+  var intersection = closed1.filter((x) => closed2.indexOf(x) !== -1);
+  return intersection.length > 0;
+}
 
-  for (let i = 0; i < neighbors.length; i++) {
-    if (equalNodes(neighbors[i], node2)) return true;
-  }
-
-  return false;
+function findIntersection(closed1, closed2) {
+  var intersection = closed1.filter((x) => closed2.indexOf(x) !== -1);
+  return intersection[0];
 }
