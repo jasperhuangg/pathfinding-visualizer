@@ -7,7 +7,7 @@ async function greedyBFS(graph, startNode, finishNode) {
   var greedyBFSGraph = shallowCopyGraph(graph, []);
 
   var numSteps = 0;
-  $("#steps-taken").html("Tiles Examined: " + numSteps);
+  $("#steps-taken").html("Cells Examined: " + numSteps);
 
   const startX = startNode.x;
   const startY = startNode.y;
@@ -89,7 +89,7 @@ async function greedyBFS(graph, startNode, finishNode) {
     }
     lastNode = currNode;
     numSteps++;
-    $("#steps-taken").html("Tiles Examined: " + numSteps);
+    $("#steps-taken").html("Cells Examined: " + numSteps);
   }
 
   if (equalNodes(currNode, finishNode)) {

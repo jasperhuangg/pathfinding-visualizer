@@ -16,7 +16,7 @@ async function djikstra(graph, startNode, finishNode) {
   }
 
   var numSteps = 0;
-  $("#steps-taken").html("Tiles Examined: " + numSteps);
+  $("#steps-taken").html("Cells Examined: " + numSteps);
 
   const startX = startNode.x;
   const startY = startNode.y;
@@ -112,7 +112,7 @@ async function djikstra(graph, startNode, finishNode) {
     else if (currentSpeed === "slow") await sleep(500);
 
     numSteps++;
-    $("#steps-taken").html("Tiles Examined: " + numSteps);
+    $("#steps-taken").html("Cells Examined: " + numSteps);
   }
 
   if (currNode.distance !== infinity) {

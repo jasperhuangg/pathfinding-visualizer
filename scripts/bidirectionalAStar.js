@@ -10,7 +10,7 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
   var numSteps = -3;
 
-  $("#steps-taken").html("Tiles Examined: " + numSteps);
+  $("#steps-taken").html("Cells Examined: " + numSteps);
 
   const startX = startNode.x;
   const startY = startNode.y;
@@ -79,7 +79,7 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
     }
     numSteps += 2;
 
-    $("#steps-taken").html("Tiles Examined: " + numSteps);
+    $("#steps-taken").html("Cells Examined: " + numSteps);
 
     closedSource.push(currNodeSource);
     closedDest.push(currNodeDest);

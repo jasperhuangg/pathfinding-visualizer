@@ -7,7 +7,7 @@ async function astar(graph, startNode, finishNode) {
   var astarGraph = shallowCopyGraph(graph, []);
 
   var numSteps = 0;
-  $("#steps-taken").html("Tiles Examined: " + numSteps);
+  $("#steps-taken").html("Cells Examined: " + numSteps);
 
   const startX = startNode.x;
   const startY = startNode.y;
@@ -102,7 +102,7 @@ async function astar(graph, startNode, finishNode) {
     }
     lastNode = currNode;
     numSteps++;
-    $("#steps-taken").html("Tiles Examined: " + numSteps);
+    $("#steps-taken").html("Cells Examined: " + numSteps);
   }
 
   if (equalNodes(currNode, finishNode)) {
