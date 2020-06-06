@@ -47,7 +47,8 @@ async function greedyBFS(graph, startNode, finishNode) {
     $(".currentNodeCottonCandy").removeClass("currentNodeCottonCandy");
 
     colorNode(currNode, "currentNode");
-    if (lastNode !== undefined) colorNode(lastNode, "visited");
+    if (lastNode !== undefined && currentSpeed !== "instantaneous")
+      colorNode(lastNode, "visited");
 
     if (currentSpeed === "fast") await sleep(20);
     else if (currentSpeed === "medium") await sleep(180);

@@ -141,7 +141,7 @@ $(".speed").on("click", function () {
   } else if (speed === "Slow") {
     currentSpeed = "slow";
   } else if (speed === "Instantaneous") {
-    currentSpeed = "instant";
+    currentSpeed = "instantaneous";
   }
   $("#speedToggle").html(speed);
 });
@@ -190,8 +190,8 @@ function disableButtons() {
   $("#run-djikstras").attr("disabled", "");
   $("#clear-grid").attr("disabled", "");
   $("#run-astar").attr("disabled", "");
-  $("#run-bidirectionalAStar").attr("disabled", "");
-  $("#info").attr("disabled", "");
+  // $("#run-bidirectionalAStar").attr("disabled", "");
+  // $("#info").attr("disabled", "");
 }
 
 function enableButtons() {
@@ -201,8 +201,8 @@ function enableButtons() {
   $("#run-djikstras").removeAttr("disabled");
   $("#clear-grid").removeAttr("disabled");
   $("#run-astar").removeAttr("disabled");
-  $("#run-bidirectionalAStar").removeAttr("disabled");
-  $("#info").removeAttr("disabled");
+  // $("#run-bidirectionalAStar").removeAttr("disabled");
+  // $("#info").removeAttr("disabled");
 }
 
 $("#clear-grid").on("click", function () {
