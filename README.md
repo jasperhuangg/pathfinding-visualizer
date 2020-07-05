@@ -1,4 +1,4 @@
-# Pathfinding Visualizer
+# Pathfinding Algorithm Visualizer
 A visualizer to help people with learning pathfinding algorithms. Built with Javascript and CSS Animations. 
 ## Demo
 https://jasperhuangg.github.io/pathfinding-visualizer
