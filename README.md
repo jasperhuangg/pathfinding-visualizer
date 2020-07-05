@@ -7,3 +7,7 @@ https://jasperhuangg.github.io/pathfinding-visualizer
 - Dijkstra's Algorithm
 - A* Search
 - Bidirectional A* Search
+## Features:
+- Choose different speeds to watch algorithm execution.
+- Place weights and walls by clicking and dragging to alter how the algorithms behave.
+- Choose color themes for algorithm visualization.
