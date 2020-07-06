@@ -2,7 +2,6 @@
 A visualizer to help people with learning pathfinding algorithms. Built with Javascript and CSS Animations. 
 ## Demo
 https://jasperhuangg.github.io/pathfinding-visualizer
-![Demo](/PathfindingVisualizerDemo.gif)
 ## Algorithms Covered: 
 - Greedy Best First Search
 - Dijkstra's Algorithm
