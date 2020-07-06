@@ -25,6 +25,10 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function printNode(node) {
+  console.log("(" + node.x + ", " + node.y + ")");
+}
+
 function recolorGrid() {
   $(".visitedSunset").removeClass("visitedSunset");
   $(".visitedOcean").removeClass("visitedOcean");

@@ -164,6 +164,8 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
       if (neighbor.setSource === "open" && cost < neighbor.gSrc) {
         neighbor.setSource = "neither";
+        neighbor.gSrc = cost;
+        neighbor.fSrc = neighbor.gSrc + neighbor.hSrc;
         openSource.remove(neighbor);
       }
       if (neighbor.setSource === "neither") {
@@ -190,6 +192,8 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
       if (neighbor.setDest === "open" && cost < neighbor.gDest) {
         neighbor.setDest = "neither";
+        neighbor.gDest = cost;
+        neighbor.fDest = neighbor.gDest + neighbor.hDest;
         openDest.remove(neighbor);
       }
       if (neighbor.setDest === "neither") {
@@ -206,6 +210,8 @@ async function bidirectionalAStar(graph, startNode, finishNode) {
 
   if (checkIntersection(closedSource, closedDest)) {
     var connectingNode = findIntersection(closedSource, closedDest);
+
+    printNode(connectingNode);
 
     var path = [];
 
